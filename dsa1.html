@@ -1,0 +1,2861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DSA Lab Visualizer - Programs 1 to 8</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
+    .code-line { transition: background-color 0.2s ease, border-color 0.2s ease; }
+    .code-line.active { background-color: rgba(99, 102, 241, 0.25); border-left: 3px solid #818cf8; }
+    .code-line.active-delete { background-color: rgba(244, 63, 94, 0.25); border-left: 3px solid #fb7185; }
+    .code-line.active-display { background-color: rgba(16, 185, 129, 0.25); border-left: 3px solid #34d399; }
+    .code-line.active-kmp { background-color: rgba(14, 165, 233, 0.25); border-left: 3px solid #38bdf8; }
+    .code-line.active-lps { background-color: rgba(234, 179, 8, 0.25); border-left: 3px solid #facc15; }
+    .code-line.active-stack { background-color: rgba(168, 85, 247, 0.25); border-left: 3px solid #c084fc; }
+    .code-line.active-infix { background-color: rgba(249, 115, 22, 0.25); border-left: 3px solid #fb923c; }
+    .code-line.active-cqueue { background-color: rgba(20, 184, 166, 0.25); border-left: 3px solid #2dd4bf; }
+    .code-line.active-sll { background-color: rgba(236, 72, 153, 0.25); border-left: 3px solid #f472b6; }
+    .code-line.active-dll { background-color: rgba(59, 130, 246, 0.25); border-left: 3px solid #60a5fa; }
+    .code-line.active-bst { background-color: rgba(16, 185, 129, 0.25); border-left: 3px solid #10b981; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col md:flex-row overflow-hidden">
+
+  <!-- Left Sidebar -->
+  <aside class="w-full md:w-64 bg-slate-900 border-r border-slate-800 flex flex-col shrink-0 h-auto md:h-screen">
+    <div class="p-5 border-b border-slate-800 flex items-center gap-3">
+      <div class="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/30">&lt;/&gt;</div>
+      <div>
+        <h1 class="font-bold text-slate-100 text-sm tracking-wide">3RD SEM DSA LAB</h1>
+        <p class="text-xs text-slate-500">VTU / Autonomous</p>
+      </div>
+    </div>
+    
+    <nav class="p-3 space-y-2 overflow-y-auto flex-1 custom-scrollbar">
+      <!-- Program 1 -->
+      <button id="navBtnP1" onclick="switchProgram('p1')" class="w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 border border-indigo-500/50 transition-all">
+        <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-indigo-800 text-indigo-100">PROG 1</span>
+        <span class="truncate">Array Operations</span>
+      </button>
+
+      <!-- Program 2 -->
+      <button id="navBtnP2" onclick="switchProgram('p2')" class="w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-slate-800/80 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-700/60 transition-all">
+        <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-700 text-slate-300">PROG 2</span>
+        <span class="truncate">KMP String Matching</span>
+      </button>
+
+      <!-- Program 3 -->
+      <button id="navBtnP3" onclick="switchProgram('p3')" class="w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-slate-800/80 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-700/60 transition-all">
+        <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-700 text-slate-300">PROG 3</span>
+        <span class="truncate">Stack & Palindrome</span>
+      </button>
+
+      <!-- Program 4 -->
+      <button id="navBtnP4" onclick="switchProgram('p4')" class="w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-slate-800/80 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-700/60 transition-all">
+        <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-700 text-slate-300">PROG 4</span>
+        <span class="truncate">Infix to Postfix</span>
+      </button>
+
+      <!-- Program 5 -->
+      <button id="navBtnP5" onclick="switchProgram('p5')" class="w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-slate-800/80 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-700/60 transition-all">
+        <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-700 text-slate-300">PROG 5</span>
+        <span class="truncate">Circular Queue</span>
+      </button>
+
+      <!-- Program 6 -->
+      <button id="navBtnP6" onclick="switchProgram('p6')" class="w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-slate-800/80 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-700/60 transition-all">
+        <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-700 text-slate-300">PROG 6</span>
+        <span class="truncate">Singly Linked List</span>
+      </button>
+
+      <!-- Program 7 -->
+      <button id="navBtnP7" onclick="switchProgram('p7')" class="w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-slate-800/80 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-700/60 transition-all">
+        <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-700 text-slate-300">PROG 7</span>
+        <span class="truncate">Doubly Linked List</span>
+      </button>
+
+      <!-- Program 8 (BST) -->
+      <button id="navBtnP8" onclick="switchProgram('p8')" class="w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-slate-800/80 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-700/60 transition-all">
+        <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-700 text-slate-300">PROG 8</span>
+        <span class="truncate">Binary Search Tree</span>
+      </button>
+
+      <div class="p-3 mt-4 border border-dashed border-slate-800 rounded-xl text-[11px] text-slate-500 text-center">
+        Programs 9 & 10 will slot in here.
+      </div>
+    </nav>
+    
+    <div class="p-4 border-t border-slate-800 text-xs text-slate-400 flex justify-between items-center bg-slate-900/40">
+      <span class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Line-by-Line Debugger
+      </span>
+      <span id="sidebarStatus" class="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-800 text-slate-300 border border-slate-700">size = 20</span>
+    </div>
+  </aside>
+
+  <!-- Main Viewport Area -->
+  <main class="flex-1 flex flex-col h-screen overflow-hidden bg-slate-950">
+    <!-- Header -->
+    <header class="bg-slate-900/80 border-b border-slate-800 px-6 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 backdrop-blur-md">
+      <div>
+        <div class="flex items-center gap-3 flex-wrap">
+          <h2 id="topHeaderTitle" class="text-lg font-bold text-slate-100">Program 1: Array Operations with Live Code Stepper</h2>
+          <span id="badgeLang" class="px-2 py-0.5 rounded text-xs font-mono font-medium bg-indigo-950 text-indigo-300 border border-indigo-800">C Language</span>
+          <span id="badgeMetric" class="px-2 py-0.5 rounded text-xs font-mono font-medium bg-slate-800 text-slate-300 border border-slate-700">size = 20</span>
+        </div>
+        <p id="topHeaderDesc" class="text-xs text-slate-400 mt-0.5">Watch the exact C line highlight in real time while memory shifts happen on the stage.</p>
+      </div>
+
+      <!-- Stepper Controls -->
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="text-xs font-mono text-slate-400">Step Speed:</span>
+        <select id="stepSpeed" class="bg-slate-950 border border-slate-700 text-slate-200 text-xs px-2 py-1 rounded focus:outline-none">
+          <option value="900">Slow (0.9s)</option>
+          <option value="550" selected>Normal (0.55s)</option>
+          <option value="250">Fast (0.25s)</option>
+        </select>
+        <button id="btnEditToggle" onclick="toggleEditSource()" class="px-3 py-1 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors">Edit Code</button>
+      </div>
+    </header>
+
+    <!-- Workspace: Split View -->
+    <div class="flex-1 flex flex-col lg:flex-row overflow-hidden p-4 gap-4">
+      
+      <!-- Left Column: Operations, Stage, and Terminal (60% width) -->
+      <div class="flex-1 lg:w-7/12 flex flex-col gap-3 overflow-y-auto custom-scrollbar pr-1">
+        
+        <!-- PROGRAM 1 CONTROLS -->
+        <div id="p1Controls" class="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 shadow-sm flex flex-col gap-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-800 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="text-slate-400 font-medium">Initial Array:</span>
+              <input type="text" id="initValues" value="10, 20, 30, 40" class="bg-slate-950 border border-slate-700 text-slate-200 px-2 py-1 rounded w-36 font-mono text-xs focus:outline-none focus:border-indigo-500" />
+              <button onclick="opInitArray()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold">Set</button>
+            </div>
+            <div class="flex items-center gap-2 px-2.5 py-1 bg-indigo-950/40 border border-indigo-800/60 rounded text-[11px]">
+              <span class="text-indigo-300">Insert pos:</span>
+              <span id="posRangeHelper" class="font-mono text-emerald-400 font-bold">1 to 5</span>
+              <span class="text-slate-500">|</span>
+              <span class="text-indigo-300">Delete pos:</span>
+              <span id="posDeleteHelper" class="font-mono text-rose-400 font-bold">1 to 4</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+            <div class="p-2.5 bg-slate-950/70 border border-indigo-950 rounded-lg flex flex-col gap-1.5">
+              <span class="font-bold text-indigo-400 flex justify-between text-[11px]"><span>1. Insert</span><span class="text-slate-500 font-mono">case 1</span></span>
+              <div class="flex gap-1">
+                <input type="number" id="insertEle" value="25" placeholder="ele" class="bg-slate-900 border border-slate-700 text-slate-100 px-1.5 py-1 rounded w-1/2 font-mono text-xs focus:outline-none focus:border-indigo-500" />
+                <input type="number" id="insertPos" value="3" placeholder="pos" class="bg-slate-900 border border-slate-700 text-slate-100 px-1.5 py-1 rounded w-1/2 font-mono text-xs focus:outline-none focus:border-indigo-500" />
+              </div>
+              <button id="btnRunInsert" onclick="opInsertStepByStep()" class="w-full py-1 text-xs font-bold rounded bg-indigo-600 hover:bg-indigo-500 text-white transition-colors">Run insert()</button>
+            </div>
+            <div class="p-2.5 bg-slate-950/70 border border-rose-950/50 rounded-lg flex flex-col gap-1.5">
+              <span class="font-bold text-rose-400 flex justify-between text-[11px]"><span>2. Delete</span><span class="text-slate-500 font-mono">case 2</span></span>
+              <input type="number" id="deletePos" value="2" placeholder="pos (1 to n)" class="bg-slate-900 border border-slate-700 text-slate-100 px-1.5 py-1 rounded w-full font-mono text-xs focus:outline-none focus:border-rose-500" />
+              <button id="btnRunDelete" onclick="opDeleteStepByStep()" class="w-full py-1 text-xs font-bold rounded bg-rose-700 hover:bg-rose-600 text-white transition-colors">Run delete()</button>
+            </div>
+            <div class="p-2.5 bg-slate-950/70 border border-slate-800 rounded-lg flex flex-col justify-between gap-1.5">
+              <span class="font-bold text-slate-300 flex justify-between text-[11px]"><span>3. Display / Reset</span><span class="text-slate-500 font-mono">case 3</span></span>
+              <div class="flex gap-1.5">
+                <button id="btnRunDisplay" onclick="opDisplayStepByStep()" class="flex-1 py-1 text-xs font-bold rounded bg-emerald-700 hover:bg-emerald-600 text-white transition-colors">display()</button>
+                <button onclick="opReset()" class="px-2 py-1 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors">Reset</button>
+              </div>
+              <span class="text-[10px] text-slate-500 text-center">Interactive VTU routine</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROGRAM 2 CONTROLS -->
+        <div id="p2Controls" class="hidden bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 shadow-sm flex flex-col gap-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-800 text-xs">
+            <span class="font-bold text-sky-400">KMP String Match Execution Controls</span>
+            <span class="text-[11px] font-mono text-slate-400">computeLPSArray() + KMPSearch()</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="flex flex-col gap-1">
+              <label class="text-[11px] font-mono text-slate-400">Text (text[100]):</label>
+              <input type="text" id="kmpText" value="ABABDABACDABABCABAB" class="bg-slate-950 border border-slate-700 text-slate-100 px-2.5 py-1.5 rounded font-mono text-xs focus:outline-none focus:border-sky-500" />
+            </div>
+            <div class="flex flex-col gap-1">
+              <label class="text-[11px] font-mono text-slate-400">Pattern (pattern[100]):</label>
+              <input type="text" id="kmpPat" value="ABABCABAB" class="bg-slate-950 border border-slate-700 text-slate-100 px-2.5 py-1.5 rounded font-mono text-xs focus:outline-none focus:border-sky-500" />
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 pt-1">
+            <button id="btnRunLPS" onclick="opRunLPSOnly()" class="px-3.5 py-1.5 text-xs font-bold rounded bg-amber-600 hover:bg-amber-500 text-white transition-colors">1. Compute LPS Array</button>
+            <button id="btnRunKMP" onclick="opRunKMPSearch()" class="px-3.5 py-1.5 text-xs font-bold rounded bg-sky-600 hover:bg-sky-500 text-white transition-colors shadow">2. Run KMPSearch()</button>
+            <button onclick="opResetP2()" class="px-3 py-1.5 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors">Reset Strings</button>
+          </div>
+        </div>
+
+        <!-- PROGRAM 3 CONTROLS -->
+        <div id="p3Controls" class="hidden bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 shadow-sm flex flex-col gap-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-800 text-xs">
+            <span class="font-bold text-purple-400">Stack Operations & Palindrome Checker</span>
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] font-mono text-slate-400">Top Index:</span>
+              <span id="p3TopBadge" class="px-2 py-0.5 rounded font-mono text-xs bg-purple-950 text-purple-300 border border-purple-800">-1 (Empty)</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+            <div class="p-2.5 bg-slate-950/70 border border-purple-950 rounded-lg flex flex-col gap-1.5">
+              <span class="font-bold text-purple-400 flex justify-between text-[11px]"><span>1. Push</span><span class="text-slate-500 font-mono">case 1</span></span>
+              <input type="number" id="p3PushVal" value="42" placeholder="Value to push" class="bg-slate-900 border border-slate-700 text-slate-100 px-2 py-1 rounded font-mono text-xs focus:outline-none focus:border-purple-500" />
+              <button id="btnP3Push" onclick="opP3Push()" class="w-full py-1 text-xs font-bold rounded bg-purple-600 hover:bg-purple-500 text-white transition-colors">push(&stack)</button>
+            </div>
+            <div class="p-2.5 bg-slate-950/70 border border-purple-950/60 rounded-lg flex flex-col justify-between gap-1.5">
+              <span class="font-bold text-purple-300 flex justify-between text-[11px]"><span>2. Pop & 4. Status</span><span class="text-slate-500 font-mono">case 2 & 4</span></span>
+              <button id="btnP3Pop" onclick="opP3Pop()" class="w-full py-1 text-xs font-bold rounded bg-rose-700 hover:bg-rose-600 text-white transition-colors">pop(&stack)</button>
+              <button id="btnP3Status" onclick="opP3DisplayStatus()" class="w-full py-1 text-xs font-bold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors">displayStatus()</button>
+            </div>
+            <div class="p-2.5 bg-slate-950/70 border border-purple-950/60 rounded-lg flex flex-col gap-1.5">
+              <span class="font-bold text-purple-400 flex justify-between text-[11px]"><span>3. Check Palindrome</span><span class="text-slate-500 font-mono">case 3</span></span>
+              <input type="text" id="p3PalString" value="MADAM" placeholder="e.g. MADAM" class="bg-slate-900 border border-slate-700 text-slate-100 px-2 py-1 rounded font-mono text-xs focus:outline-none focus:border-purple-500" />
+              <button id="btnP3Pal" onclick="opP3CheckPalindrome()" class="w-full py-1 text-xs font-bold rounded bg-indigo-600 hover:bg-indigo-500 text-white transition-colors">isPalindrome(str)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROGRAM 4 CONTROLS -->
+        <div id="p4Controls" class="hidden bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 shadow-sm flex flex-col gap-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-800 text-xs">
+            <span class="font-bold text-orange-400">Infix to Postfix Expression Converter</span>
+            <div class="flex items-center gap-1.5 text-[11px] font-mono text-slate-400">
+              <span>Supports:</span>
+              <span class="text-orange-300 font-bold">+, -, *, /, %, ^, ()</span>
+            </div>
+          </div>
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 text-xs">
+            <div class="flex-1 flex flex-col gap-1">
+              <label class="text-[11px] font-mono text-slate-400">Infix Expression:</label>
+              <input type="text" id="p4InfixInput" value="(a+(b-c)*d)" placeholder="e.g. (a+(b-c)*d)" class="bg-slate-950 border border-slate-700 text-slate-100 px-3 py-1.5 rounded font-mono text-xs focus:outline-none focus:border-orange-500" />
+            </div>
+            <div class="flex items-end gap-2 pt-1 sm:pt-0">
+              <button id="btnRunP4" onclick="opRunInfixToPostfix()" class="px-4 py-2 text-xs font-bold rounded bg-orange-600 hover:bg-orange-500 text-white transition-colors shadow flex items-center gap-1.5">
+                <span>Run infixToPostfix()</span>
+              </button>
+              <button onclick="opResetP4()" class="px-3 py-2 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors">Reset</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROGRAM 5 CONTROLS -->
+        <div id="p5Controls" class="hidden bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 shadow-sm flex flex-col gap-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-800 text-xs">
+            <span class="font-bold text-teal-400">Circular Queue Operations (cqueue_arr[10])</span>
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] font-mono text-slate-400">Front:</span>
+              <span id="p5FrontBadge" class="px-2 py-0.5 rounded font-mono text-xs bg-slate-800 text-teal-300 border border-slate-700">-1</span>
+              <span class="text-[11px] font-mono text-slate-400">Rear:</span>
+              <span id="p5RearBadge" class="px-2 py-0.5 rounded font-mono text-xs bg-slate-800 text-teal-300 border border-slate-700">-1</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 text-xs">
+            <div class="p-2.5 bg-slate-950/70 border border-teal-950 rounded-lg flex flex-col gap-1.5">
+              <span class="font-bold text-teal-400 flex justify-between text-[11px]"><span>1. Insert</span><span class="text-slate-500 font-mono">case 1</span></span>
+              <input type="number" id="p5InsertVal" value="55" placeholder="Item" class="bg-slate-900 border border-slate-700 text-slate-100 px-2 py-1 rounded font-mono text-xs focus:outline-none focus:border-teal-500" />
+              <button id="btnP5Insert" onclick="opP5Insert()" class="w-full py-1 text-xs font-bold rounded bg-teal-600 hover:bg-teal-500 text-white transition-colors">insert(item)</button>
+            </div>
+            <div class="p-2.5 bg-slate-950/70 border border-teal-950 rounded-lg flex flex-col justify-between gap-1.5">
+              <span class="font-bold text-rose-400 flex justify-between text-[11px]"><span>2. Delete</span><span class="text-slate-500 font-mono">case 2</span></span>
+              <span class="text-[10px] text-slate-400">Removes element at front</span>
+              <button id="btnP5Del" onclick="opP5Delete()" class="w-full py-1 text-xs font-bold rounded bg-rose-700 hover:bg-rose-600 text-white transition-colors">del()</button>
+            </div>
+            <div class="p-2.5 bg-slate-950/70 border border-teal-950 rounded-lg flex flex-col justify-between gap-1.5">
+              <span class="font-bold text-amber-400 flex justify-between text-[11px]"><span>3. Peek</span><span class="text-slate-500 font-mono">case 3</span></span>
+              <span class="text-[10px] text-slate-400">Inspect front element</span>
+              <button id="btnP5Peek" onclick="opP5Peek()" class="w-full py-1 text-xs font-bold rounded bg-amber-600 hover:bg-amber-500 text-white transition-colors">peek()</button>
+            </div>
+            <div class="p-2.5 bg-slate-950/70 border border-slate-800 rounded-lg flex flex-col justify-between gap-1.5">
+              <span class="font-bold text-slate-300 flex justify-between text-[11px]"><span>4. Display</span><span class="text-slate-500 font-mono">case 4</span></span>
+              <div class="flex gap-1.5">
+                <button id="btnP5Display" onclick="opP5Display()" class="flex-1 py-1 text-xs font-bold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors">display()</button>
+                <button onclick="opResetP5()" class="px-2 py-1 text-xs font-semibold rounded bg-slate-900 hover:bg-slate-800 text-slate-400 border border-slate-800 transition-colors">Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROGRAM 6 CONTROLS -->
+        <div id="p6Controls" class="hidden bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 shadow-sm flex flex-col gap-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-800 text-xs">
+            <span class="font-bold text-pink-400">Singly Linked List (SLL) Operations</span>
+            <div class="flex items-center gap-1.5 text-[11px] font-mono text-slate-400">
+              <span>Nodes:</span>
+              <span id="p6CountBadge" class="text-pink-300 font-bold">3 items</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 text-xs">
+            <div class="p-2.5 bg-slate-950/70 border border-pink-950 rounded-lg flex flex-col gap-1.5">
+              <span class="font-bold text-pink-400 flex justify-between text-[11px]"><span>1. Insert Front</span><span class="text-slate-500 font-mono">case 1</span></span>
+              <input type="number" id="p6InsertVal" value="40" placeholder="Data" class="bg-slate-900 border border-slate-700 text-slate-100 px-2 py-1 rounded font-mono text-xs focus:outline-none focus:border-pink-500" />
+              <button id="btnP6Insert" onclick="opP6InsertFront()" class="w-full py-1 text-xs font-bold rounded bg-pink-600 hover:bg-pink-500 text-white transition-colors">insertAtFront()</button>
+            </div>
+            <div class="p-2.5 bg-slate-950/70 border border-rose-950 rounded-lg flex flex-col gap-1.5">
+              <span class="font-bold text-rose-400 flex justify-between text-[11px]"><span>2. Delete Key</span><span class="text-slate-500 font-mono">case 2</span></span>
+              <input type="number" id="p6DeleteKey" value="20" placeholder="Key" class="bg-slate-900 border border-slate-700 text-slate-100 px-2 py-1 rounded font-mono text-xs focus:outline-none focus:border-rose-500" />
+              <button id="btnP6Delete" onclick="opP6DeleteNode()" class="w-full py-1 text-xs font-bold rounded bg-rose-700 hover:bg-rose-600 text-white transition-colors">deleteNode()</button>
+            </div>
+            <div class="p-2.5 bg-slate-950/70 border border-amber-950 rounded-lg flex flex-col gap-1.5">
+              <span class="font-bold text-amber-400 flex justify-between text-[11px]"><span>3. Search Key</span><span class="text-slate-500 font-mono">case 3</span></span>
+              <input type="number" id="p6SearchKey" value="30" placeholder="Key" class="bg-slate-900 border border-slate-700 text-slate-100 px-2 py-1 rounded font-mono text-xs focus:outline-none focus:border-amber-500" />
+              <button id="btnP6Search" onclick="opP6SearchNode()" class="w-full py-1 text-xs font-bold rounded bg-amber-600 hover:bg-amber-500 text-white transition-colors">searchNode()</button>
+            </div>
+            <div class="p-2.5 bg-slate-950/70 border border-slate-800 rounded-lg flex flex-col justify-between gap-1.5">
+              <span class="font-bold text-slate-300 flex justify-between text-[11px]"><span>4. Display List</span><span class="text-slate-500 font-mono">case 4</span></span>
+              <div class="flex gap-1.5">
+                <button id="btnP6Display" onclick="opP6DisplayList()" class="flex-1 py-1 text-xs font-bold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors">displayList()</button>
+                <button onclick="opResetP6()" class="px-2 py-1 text-xs font-semibold rounded bg-slate-900 hover:bg-slate-800 text-slate-400 border border-slate-800 transition-colors">Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROGRAM 7 CONTROLS -->
+        <div id="p7Controls" class="hidden bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 shadow-sm flex flex-col gap-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-800 text-xs">
+            <span class="font-bold text-blue-400">Doubly Linked List (DLL) Operations</span>
+            <div class="flex items-center gap-1.5 text-[11px] font-mono text-slate-400">
+              <span>Nodes:</span>
+              <span id="p7CountBadge" class="text-blue-300 font-bold">3 items</span>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 text-xs">
+            <div class="p-2.5 bg-slate-950/70 border border-blue-950 rounded-lg flex flex-col gap-1.5">
+              <span class="font-bold text-blue-400 flex justify-between text-[11px]"><span>1. Add Front</span><span class="text-slate-500 font-mono">case 1</span></span>
+              <input type="number" id="p7InsertVal" value="40" placeholder="Data" class="bg-slate-900 border border-slate-700 text-slate-100 px-2 py-1 rounded font-mono text-xs focus:outline-none focus:border-blue-500" />
+              <button id="btnP7Insert" onclick="opP7InsertFront()" class="w-full py-1 text-xs font-bold rounded bg-blue-600 hover:bg-blue-500 text-white transition-colors">insertAtFront()</button>
+            </div>
+            <div class="p-2.5 bg-slate-950/70 border border-rose-950 rounded-lg flex flex-col gap-1.5">
+              <span class="font-bold text-rose-400 flex justify-between text-[11px]"><span>2. Delete Key</span><span class="text-slate-500 font-mono">case 2</span></span>
+              <input type="number" id="p7DeleteKey" value="20" placeholder="Key" class="bg-slate-900 border border-slate-700 text-slate-100 px-2 py-1 rounded font-mono text-xs focus:outline-none focus:border-rose-500" />
+              <button id="btnP7Delete" onclick="opP7DeleteNode()" class="w-full py-1 text-xs font-bold rounded bg-rose-700 hover:bg-rose-600 text-white transition-colors">deleteNode()</button>
+            </div>
+            <div class="p-2.5 bg-slate-950/70 border border-amber-950 rounded-lg flex flex-col gap-1.5">
+              <span class="font-bold text-amber-400 flex justify-between text-[11px]"><span>3. Insert Left</span><span class="text-slate-500 font-mono">case 3</span></span>
+              <div class="flex gap-1">
+                <input type="number" id="p7LeftKey" value="20" placeholder="Key" class="bg-slate-900 border border-slate-700 text-slate-100 px-1.5 py-1 rounded w-1/2 font-mono text-xs focus:outline-none focus:border-amber-500" />
+                <input type="number" id="p7LeftData" value="15" placeholder="Data" class="bg-slate-900 border border-slate-700 text-slate-100 px-1.5 py-1 rounded w-1/2 font-mono text-xs focus:outline-none focus:border-amber-500" />
+              </div>
+              <button id="btnP7InsertLeft" onclick="opP7InsertLeft()" class="w-full py-1 text-xs font-bold rounded bg-amber-600 hover:bg-amber-500 text-white transition-colors">insertLeft()</button>
+            </div>
+            <div class="p-2.5 bg-slate-950/70 border border-slate-800 rounded-lg flex flex-col justify-between gap-1.5">
+              <span class="font-bold text-slate-300 flex justify-between text-[11px]"><span>4. Display</span><span class="text-slate-500 font-mono">case 4</span></span>
+              <div class="flex gap-1.5">
+                <button id="btnP7Display" onclick="opP7DisplayList()" class="flex-1 py-1 text-xs font-bold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors">displayList()</button>
+                <button onclick="opResetP7()" class="px-2 py-1 text-xs font-semibold rounded bg-slate-900 hover:bg-slate-800 text-slate-400 border border-slate-800 transition-colors">Reset</button>
+              </div>
+              <span class="text-[10px] text-slate-500 text-center font-mono">NULL &larr; [node] &rarr; NULL</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROGRAM 8 CONTROLS (BST) -->
+        <div id="p8Controls" class="hidden bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 shadow-sm flex flex-col gap-3">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-800 text-xs">
+            <span class="font-bold text-emerald-400">Binary Search Tree (BST) Operations</span>
+            <div class="flex items-center gap-2">
+              <button onclick="opP8LoadSyllabusSequence()" class="px-2.5 py-1 rounded text-xs font-bold bg-emerald-950 border border-emerald-600 text-emerald-300 hover:bg-emerald-900 transition-colors">
+                Load Syllabus (6,9,5,2,8,15,24,14,7...)
+              </button>
+              <span class="text-slate-400 font-mono">Height: <strong id="p8HeightBadge" class="text-emerald-300 font-bold">0</strong></span>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 text-xs">
+            <!-- 1. Insert Node -->
+            <div class="p-2.5 bg-slate-950/70 border border-emerald-950 rounded-lg flex flex-col gap-1.5">
+              <span class="font-bold text-emerald-400 flex justify-between text-[11px]"><span>1. Insert Node</span><span class="text-slate-500 font-mono">case 1</span></span>
+              <input type="number" id="p8InsertVal" value="10" placeholder="Value" class="bg-slate-900 border border-slate-700 text-slate-100 px-2 py-1 rounded font-mono text-xs focus:outline-none focus:border-emerald-500" />
+              <button id="btnP8Insert" onclick="opP8InsertNode()" class="w-full py-1 text-xs font-bold rounded bg-emerald-600 hover:bg-emerald-500 text-white transition-colors">insert(root, node)</button>
+            </div>
+
+            <!-- 2. Search -->
+            <div class="p-2.5 bg-slate-950/70 border border-amber-950 rounded-lg flex flex-col gap-1.5">
+              <span class="font-bold text-amber-400 flex justify-between text-[11px]"><span>2. Search</span><span class="text-slate-500 font-mono">case 3</span></span>
+              <input type="number" id="p8SearchKey" value="8" placeholder="Key" class="bg-slate-900 border border-slate-700 text-slate-100 px-2 py-1 rounded font-mono text-xs focus:outline-none focus:border-amber-500" />
+              <button id="btnP8Search" onclick="opP8SearchNode()" class="w-full py-1 text-xs font-bold rounded bg-amber-600 hover:bg-amber-500 text-white transition-colors">search(root)</button>
+            </div>
+
+            <!-- 3. Traversals -->
+            <div class="p-2.5 bg-slate-950/70 border border-slate-800 rounded-lg flex flex-col justify-between gap-1.5">
+              <span class="font-bold text-slate-300 flex justify-between text-[11px]"><span>3. BST Traversals</span><span class="text-slate-500 font-mono">case 2</span></span>
+              <div class="grid grid-cols-3 gap-1">
+                <button id="btnP8Pre" onclick="opP8Preorder()" class="py-1 text-[10px] font-bold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">Pre</button>
+                <button id="btnP8In" onclick="opP8Inorder()" class="py-1 text-[10px] font-bold rounded bg-emerald-800 hover:bg-emerald-700 text-emerald-100 border border-emerald-700">In</button>
+                <button id="btnP8Post" onclick="opP8Postorder()" class="py-1 text-[10px] font-bold rounded bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700">Post</button>
+              </div>
+              <button onclick="opP8TraverseAll()" class="w-full py-1 text-xs font-bold rounded bg-indigo-600 hover:bg-indigo-500 text-white transition-colors">Run All (Case 2)</button>
+            </div>
+
+            <!-- 4. Reset & Clear -->
+            <div class="p-2.5 bg-slate-950/70 border border-slate-800 rounded-lg flex flex-col justify-between gap-1.5">
+              <span class="font-bold text-slate-300 flex justify-between text-[11px]"><span>Tree Utilities</span><span class="text-slate-500 font-mono">root</span></span>
+              <button onclick="opP8ClearTree()" class="w-full py-1 text-xs font-bold rounded bg-rose-700 hover:bg-rose-600 text-white transition-colors">Clear Tree</button>
+              <button onclick="opResetP8()" class="w-full py-1 text-xs font-semibold rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors">Reset Defaults</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual Stage Canvas -->
+        <div class="flex-1 min-h-[220px] bg-slate-900/40 border border-slate-800 rounded-xl p-4 flex flex-col justify-center items-center relative overflow-hidden">
+          <div id="stageLegendLeft" class="absolute top-2.5 left-3.5 flex items-center gap-3 text-xs font-mono">
+            <span class="text-slate-400">Total size: <strong class="text-slate-200">20</strong></span>
+            <span class="text-slate-400">Current count (n): <strong id="displayN" class="text-indigo-400 font-bold">4</strong></span>
+          </div>
+
+          <div id="stageLegendRight" class="absolute top-2.5 right-3.5 flex items-center gap-3 text-[10px] font-mono">
+            <span class="flex items-center gap-1 text-emerald-400"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> pos: User (1-based)</span>
+            <span class="flex items-center gap-1 text-slate-400"><span class="w-2 h-2 rounded-full bg-slate-500"></span> [i]: C Index (0-based)</span>
+          </div>
+
+          <div id="visualCanvas" class="w-full h-full flex items-center justify-center overflow-auto py-3 custom-scrollbar"></div>
+        </div>
+
+        <!-- Terminal Output Window -->
+        <div class="h-36 bg-slate-900 border border-slate-800 rounded-xl p-3 flex flex-col shadow-inner">
+          <div class="flex items-center justify-between pb-1.5 border-b border-slate-800 mb-1">
+            <span class="text-xs font-mono font-medium text-slate-400 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              Virtual C Terminal (stdout)
+            </span>
+            <button onclick="clearConsole()" class="text-xs text-slate-500 hover:text-slate-300 transition-colors">Clear</button>
+          </div>
+          <div id="consoleTrace" class="flex-1 overflow-y-auto font-mono text-xs text-slate-300 space-y-0.5 custom-scrollbar select-text"></div>
+        </div>
+      </div>
+
+      <!-- Right Column: Live Code Stepper & In-Place Editor (5/12 width) -->
+      <div class="flex-1 lg:w-5/12 bg-slate-900 border border-slate-800 rounded-xl flex flex-col overflow-hidden shadow-md">
+        <div class="px-4 py-2.5 border-b border-slate-800 bg-slate-900/90 flex justify-between items-center">
+          <div class="flex items-center gap-2">
+            <span id="codeModeLabel" class="text-xs font-mono font-semibold text-indigo-300">program1.c (Active Line Tracker)</span>
+          </div>
+          <div id="editorActionButtons" class="hidden flex gap-2">
+            <button onclick="saveCodeBuffer()" class="text-[11px] bg-emerald-800 hover:bg-emerald-700 text-white px-2.5 py-0.5 rounded font-medium transition-colors">Save</button>
+            <button onclick="resetCurrentProgramCode()" class="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-2 py-0.5 rounded transition-colors">Reset</button>
+          </div>
+        </div>
+
+        <!-- Line-by-Line Stepper View -->
+        <div id="codeViewContainer" class="p-3 flex-1 overflow-auto custom-scrollbar bg-[#161b22] font-mono text-[11px] leading-5 text-slate-300 select-text">
+          <div id="codeLineList" class="divide-y divide-transparent"></div>
+        </div>
+
+        <!-- Editable Textarea -->
+        <div id="codeEditContainer" class="hidden flex-1 flex flex-col bg-[#1d1f21]">
+          <textarea id="codeEditor" spellcheck="false" class="w-full h-full p-4 font-mono text-xs text-slate-200 bg-[#1d1f21] resize-none focus:outline-none custom-scrollbar leading-relaxed"></textarea>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // ==========================================
+    // EXACT RAW C CODE FOR PROGRAMS 1 TO 8
+    // ==========================================
+    const rawProgram1 = `#include<stdio.h>
+#include<stdlib.h>
+#define size 20
+
+void insert(int arr[], int *n);
+void delete(int arr[], int *n);
+void display(int arr[], int n);
+
+void main()
+{
+    int arr[size], i, n, ch;
+    printf("Enter Initial size of Array\\n");
+    scanf("%d", &n);
+    printf("Enter Array Elements\\n");
+    for(i=0; i<n; i++)
+        scanf("%d", &arr[i]);
+    for(;;)
+    {
+        printf("\\nMenu\\n");
+        printf("1. Insert\\n2. Delete\\n3. Display\\n4. Exit\\n");
+        scanf("%d", &ch);
+        switch(ch)
+        {
+            case 1:
+                insert(arr, &n);
+                break;
+            case 2:
+                delete(arr, &n);
+                break;
+            case 3:
+                display(arr, n);
+                break;
+            case 4:
+                exit(0);
+        }
+    }
+}
+
+void insert(int arr[], int *n)
+{
+    int i, pos, ele;
+    printf("Enter Element\\n");
+    scanf("%d", &ele);
+    printf("Enter Position\\n");
+    scanf("%d", &pos);
+    for(i=(*n)-1; i>=pos-1; i--)
+    {
+        arr[i+1] = arr[i];
+    }
+    arr[pos-1] = ele;
+    *n = *n + 1;
+}
+
+void delete(int arr[], int *n)
+{
+    int i, pos;
+    printf("Enter the Position to delete the element\\n");
+    scanf("%d", &pos);
+    for(i=pos-1; i<(*n)-1; i++)
+    {
+        arr[i] = arr[i+1];
+    }
+    *n = *n - 1;
+}
+
+void display(int arr[], int n)
+{
+    int i;
+    for(i=0; i<n; i++)
+        printf("%d ", arr[i]);
+    printf("\\n");
+}`;
+
+    const rawProgram2 = `#include <stdio.h>
+#include <string.h>
+
+void computeLPSArray(char *pattern, int M, int *lps) {
+    int length = 0;
+    lps[0] = 0;
+
+    int i = 1;
+    while (i < M) {
+        if (pattern[i] == pattern[length]) {
+            length++;
+            lps[i] = length;
+            i++;
+        } else {
+            if (length != 0) {
+                length = lps[length - 1];
+            } else {
+                lps[i] = 0;
+                i++;
+            }
+        }
+    }
+}
+
+void KMPSearch(char *pattern, char *text) {
+    int M = strlen(pattern);
+    int N = strlen(text);
+
+    int lps[M];
+
+    computeLPSArray(pattern, M, lps);
+
+    int i = 0;
+    int j = 0;
+    while (i < N) {
+        if (pattern[j] == text[i]) {
+            i++;
+            j++;
+        }
+
+        if (j == M) {
+            printf("Pattern found at index %d\\n", i - j);
+            j = lps[j - 1];
+        } else if (i < N && pattern[j] != text[i]) {
+            if (j != 0) {
+                j = lps[j - 1];
+            } else {
+                i = i + 1;
+            }
+        }
+    }
+}
+
+int main() 
+{
+    char text[100];   
+    char pattern[100];
+
+    printf("Enter the text: ");
+    scanf("%s", text);  
+
+    printf("Enter the pattern: ");
+    scanf("%s", pattern);  
+
+    KMPSearch(pattern, text);
+
+    return 0;
+}`;
+
+    const rawProgram3 = `#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+
+#define MAX 10
+
+struct Stack {
+    int items[MAX];
+    int top;
+};
+
+typedef struct Stack Stack;
+
+void initialize(Stack* stack) {
+    stack->top = -1;
+}
+
+bool isEmpty(Stack* stack) {
+    return stack->top == -1;
+}
+
+bool isFull(Stack* stack) {
+    return stack->top == MAX - 1;
+}
+
+void push(Stack* stack, int value) {
+    if (isFull(stack)) {
+        printf("Stack Overflow: Cannot push element %d, stack is full.\\n", value);
+    } else {
+        stack->items[++stack->top] = value;
+        printf("Element %d pushed onto the stack.\\n", value);
+    }
+}
+
+int pop(Stack* stack) {
+    if (isEmpty(stack)) {
+        printf("Stack Underflow: Cannot pop element, stack is empty.\\n");
+        return -1;
+    } else {
+        return stack->items[stack->top--];
+    }
+}
+
+bool isPalindrome(char str[]) {
+    Stack stack;
+    initialize(&stack);
+
+    int i = 0;
+    while (str[i] != '\\0') {
+        push(&stack, str[i]);
+        i++;
+    }
+
+    i = 0;
+    while (str[i] != '\\0') {
+        char stackTop = pop(&stack);
+        if (stackTop != str[i]) {
+            return false;
+        }
+        i++;
+    }
+
+    return true;
+}
+
+void displayStatus(Stack* stack) {
+    if (isEmpty(stack)) {
+        printf("Stack is empty.\\n");
+    } else if (isFull(stack)) {
+        printf("Stack is full.\\n");
+    } else {
+        printf("Stack is neither empty nor full.\\n");
+    }
+}
+
+int main() {
+    Stack stack;
+    initialize(&stack);
+
+    int choice, element;
+    char str[100];
+
+    do {
+        printf("\\nStack Menu:\\n");
+        printf("1. Push Element\\n");
+        printf("2. Pop Element\\n");
+        printf("3. Check Palindrome\\n");
+        printf("4. Display Stack Status\\n");
+        printf("5. Exit\\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter element to push onto the stack: ");
+                scanf("%d", &element);
+                push(&stack, element);
+                break;
+
+            case 2:
+                element = pop(&stack);
+                if (element != -1) {
+                    printf("Popped element: %d\\n", element);
+                }
+                break;
+
+            case 3:
+                printf("Enter a string to check if it is a palindrome: ");
+                scanf("%s", str);
+                if (isPalindrome(str)) {
+                    printf("The string is a palindrome.\\n");
+                } else {
+                    printf("The string is not a palindrome.\\n");
+                }
+                break;
+
+            case 4:
+                displayStatus(&stack);
+                break;
+
+            case 5:
+                printf("Exiting the program.\\n");
+                break;
+
+            default:
+                printf("Invalid choice. Please enter a valid option.\\n");
+        }
+
+    } while (choice != 5);
+
+    return 0;
+}`;
+
+    const rawProgram4 = `#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+
+#define MAX 100
+
+struct Stack {
+    char items[MAX];
+    int top;
+};
+
+typedef struct Stack Stack;
+
+void initialize(Stack* stack) {
+    stack->top = -1;
+}
+
+bool isEmpty(Stack* stack) {
+    return stack->top == -1;
+}
+
+bool isFull(Stack* stack) {
+    return stack->top == MAX - 1;
+}
+
+void push(Stack* stack, char value) {
+    if (isFull(stack)) {
+        printf("Stack Overflow: Cannot push element %c, stack is full.\\n", value);
+    } else {
+        stack->items[++stack->top] = value;
+    }
+}
+
+char pop(Stack* stack) {
+    if (isEmpty(stack)) {
+        printf("Stack Underflow: Cannot pop element, stack is empty.\\n");
+        return '\\0';
+    } else {
+        return stack->items[stack->top--];
+    }
+}
+
+int getPrecedence(char operator) {
+    switch (operator) {
+        case '^':
+            return 3;
+        case '*':
+        case '/':
+        case '%':
+            return 2;
+        case '+':
+        case '-':
+            return 1;
+        default:
+            return 0;
+    }
+}
+
+void infixToPostfix(char infix[], char postfix[]) {
+    Stack stack;
+    initialize(&stack);
+
+    int i = 0, j = 0;
+
+    while (infix[i] != '\\0') {
+        char currentChar = infix[i];
+
+        if ((currentChar >= 'a' && currentChar <= 'z') || (currentChar >= 'A' && currentChar <= 'Z')) {
+            postfix[j++] = currentChar;
+        } else if (currentChar == '(') {
+            push(&stack, currentChar);
+        } else if (currentChar == ')') {
+            while (!isEmpty(&stack) && stack.items[stack.top] != '(') {
+                postfix[j++] = pop(&stack);
+            }
+            if (!isEmpty(&stack) && stack.items[stack.top] == '(') {
+                pop(&stack);
+            } else {
+                printf("Invalid expression: Mismatched parentheses.\\n");
+                exit(1);
+            }
+        } else {
+            while (!isEmpty(&stack) && getPrecedence(stack.items[stack.top]) >= getPrecedence(currentChar)) {
+                postfix[j++] = pop(&stack);
+            }
+            push(&stack, currentChar);
+        }
+
+        i++;
+    }
+
+    while (!isEmpty(&stack)) {
+        char stackTop = pop(&stack);
+        if (stackTop == '(') {
+            printf("Invalid expression: Mismatched parentheses.\\n");
+            exit(1);
+        }
+        postfix[j++] = stackTop;
+    }
+
+    postfix[j] = '\\0';
+}
+
+int main() {
+    char infixExpression[MAX];
+    char postfixExpression[MAX];
+
+    printf("Enter the infix expression: ");
+    fgets(infixExpression, sizeof(infixExpression), stdin);
+
+    int i = 0;
+    while (infixExpression[i] != '\\0') {
+        if (infixExpression[i] == '\\n') {
+            infixExpression[i] = '\\0';
+            break;
+        }
+        i++;
+    }
+
+    infixToPostfix(infixExpression, postfixExpression);
+
+    printf("Postfix Expression: %s\\n", postfixExpression);
+
+    return 0;
+}`;
+
+    const rawProgram5 = `#include<stdio.h>
+#include<stdlib.h>
+#define MAX 10
+
+int cqueue_arr[MAX];
+int front=-1;
+int rear=-1;
+
+void display( );
+void insert(int item);
+int del();
+int peek();
+int isEmpty();
+int isFull();
+
+int main()
+{
+        int choice,item;
+        while(1)
+        {
+                printf("\\n1.Insert\\n");
+                printf("2.Delete\\n");
+                printf("3.Peek\\n");
+                printf("4.Display\\n");
+                printf("5.Quit\\n");
+                printf("\\nEnter your choice : ");
+                scanf("%d",&choice);
+
+                switch(choice)
+                {
+                case 1 :
+                        printf("\\nInput the element for insertion : ");
+                        scanf("%d",&item);
+                        insert(item);
+                        break;
+                case 2 :
+                        printf("\\nElement deleted is : %d\\n",del());
+                        break;
+                case 3:
+                        printf("\\nElement at the front is  : %d\\n",peek());
+                        break;
+                case 4:
+                        display();
+                        break;
+                case 5:
+                        exit(1);
+                default:
+                        printf("\\nWrong choice\\n");
+                }
+        }
+
+        return 0;
+
+}
+
+void insert(int item)
+{
+        if( isFull() )
+        {
+                printf("\\nQueue Overflow\\n");
+                return;
+        }
+        if(front == -1 )
+                front=0;
+
+        if(rear==MAX-1)
+                rear=0;
+        else
+                rear=rear+1;
+        cqueue_arr[rear]=item ;
+}
+
+int del()
+{
+        int item;
+        if( isEmpty() )
+        {
+                printf("\\nQueue Underflow\\n");
+                exit(1);
+        }
+        item=cqueue_arr[front];
+        if(front==rear)
+        {
+                front=-1;
+                rear=-1;
+        }
+        else if(front==MAX-1)
+                front=0;
+        else
+                front=front+1;
+        return item;
+}
+
+int isEmpty()
+{
+        if(front==-1)
+                return 1;
+        else
+                return 0;
+}
+
+int isFull()
+{
+        if((front==0 && rear==MAX-1) || (front==rear+1))
+                return 1;
+        else
+                return 0;
+}
+
+int peek()
+{
+        if( isEmpty() )
+        {
+                printf("\\nQueue Underflow\\n");
+                exit(1);
+        }
+        return cqueue_arr[front];
+}
+
+void display()
+{
+        int i;
+        if(isEmpty())
+        {
+                printf("\\nQueue is empty\\n");
+                return;
+        }
+        printf("\\nQueue elements :\\n");
+        i=front;
+        if( front<=rear )
+        {
+                while(i<=rear)
+                        printf("%d ",cqueue_arr[i++]);
+        }
+        else
+        {
+                while(i<=MAX-1)
+                        printf("%d ",cqueue_arr[i++]);
+                i=0;
+                while(i<=rear)
+                        printf("%d ",cqueue_arr[i++]);
+        }
+        printf("\\n");
+}`;
+
+    const rawProgram6 = `#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+void insertAtFront(struct Node** head, int data);
+void deleteNode(struct Node** head, int key);
+void searchNode(struct Node* head, int key);
+void displayList(struct Node* node);
+
+int main() {
+    struct Node* head = NULL;
+    int choice, data, key;
+
+    do {
+        printf("\\nMenu:\\n");
+        printf("1. Insert an element at the front\\n");
+        printf("2. Delete an element\\n");
+        printf("3. Search for an element\\n");
+        printf("4. Display the list\\n");
+        printf("5. Exit\\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter data to insert: ");
+                scanf("%d", &data);
+                insertAtFront(&head, data);
+                break;
+
+            case 2:
+                printf("Enter the data of the node to delete: ");
+                scanf("%d", &key);
+                deleteNode(&head, key);
+                break;
+
+            case 3:
+                printf("Enter the data to search for: ");
+                scanf("%d", &key);
+                searchNode(head, key);
+                break;
+
+            case 4:
+                printf("The current list is: ");
+                displayList(head);
+                break;
+
+            case 5:
+                printf("Exiting...\\n");
+                break;
+
+            default:
+                printf("Invalid choice! Please try again.\\n");
+        }
+    } while (choice != 5);
+
+    return 0;
+}
+
+void insertAtFront(struct Node** head, int data) {
+    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+    new_node->data = data;
+    new_node->next = *head;
+    *head = new_node;
+    printf("Node with data %d inserted at the front.\\n", data);
+}
+
+void deleteNode(struct Node** head, int key) {
+    struct Node* temp = *head;
+    struct Node* prev = NULL;
+
+    if (temp != NULL && temp->data == key) {
+        *head = temp->next;
+        free(temp);
+        printf("Node with data %d deleted!\\n", key);
+        return;
+    }
+
+    while (temp != NULL && temp->data != key) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == NULL) {
+        printf("Node with data %d not found!\\n", key);
+        return;
+    }
+
+    prev->next = temp->next;
+
+    free(temp);
+    printf("Node with data %d deleted!\\n", key);
+}
+
+void searchNode(struct Node* head, int key) {
+    struct Node* current = head;
+
+    while (current != NULL) {
+        if (current->data == key) {
+            printf("Node with data %d found!\\n", key);
+            return;
+        }
+        current = current->next;
+    }
+    printf("Node with data %d not found!\\n", key);
+}
+
+void displayList(struct Node* node) {
+    if (node == NULL) {
+        printf("List is empty!\\n");
+        return;
+    }
+
+    while (node != NULL) {
+        printf("%d ", node->data);
+        node = node->next;
+    }
+    printf("\\n");
+}`;
+
+    const rawProgram7 = `#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *prev;
+    struct Node *next;
+};
+
+void insertAtFront(struct Node **head, int data);
+void deleteNode(struct Node **head, int key);
+void insertLeft(struct Node **head, int key, int data);
+void displayList(struct Node *node);
+
+int main() {
+    struct Node *head = NULL;
+    int choice, data, key, n, i;
+
+    do {
+        printf("\\nMenu:\\n");
+        printf("1. Create a doubly linked list of N nodes (add at front)\\n");
+        printf("2. Delete a node with given data\\n");
+        printf("3. Insert a node to the left of a node with given key value\\n");
+        printf("4. Display the list\\n");
+        printf("5. Exit\\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter the number of nodes: ");
+                scanf("%d", &n);
+                for (i = 0; i < n; i++) {
+                    printf("Enter data for node %d: ", i + 1);
+                    scanf("%d", &data);
+                    insertAtFront(&head, data);
+                }
+                break;
+
+            case 2:
+                printf("Enter the data of the node to delete: ");
+                scanf("%d", &key);
+                deleteNode(&head, key);
+                break;
+
+            case 3:
+                printf("Enter the key value: ");
+                scanf("%d", &key);
+                printf("Enter the data to insert to the left of the key: ");
+                scanf("%d", &data);
+                insertLeft(&head, key, data);
+                break;
+
+            case 4:
+                printf("The current list is: ");
+                displayList(head);
+                break;
+
+            case 5:
+                printf("Exiting...\\n");
+                break;
+
+            default:
+                printf("Invalid choice! Please try again.\\n");
+        }
+    } while (choice != 5);
+
+    return 0;
+}
+
+void insertAtFront(struct Node **head, int data) {
+    struct Node *new_node = (struct Node *)malloc(sizeof(struct Node));
+    new_node->data = data;
+    new_node->prev = NULL;
+    new_node->next = *head;
+
+    if (*head != NULL) {
+        (*head)->prev = new_node;
+    }
+
+    *head = new_node;
+}
+
+void deleteNode(struct Node **head, int key) {
+    struct Node *temp = *head;
+
+    while (temp != NULL && temp->data != key) {
+        temp = temp->next;
+    }
+
+    if (temp == NULL) {
+        printf("Node with data %d not found!\\n", key);
+        return;
+    }
+
+    if (*head == temp) {
+        *head = temp->next;
+    }
+
+    if (temp->next != NULL) {
+        temp->next->prev = temp->prev;
+    }
+
+    if (temp->prev != NULL) {
+        temp->prev->next = temp->next;
+    }
+
+    free(temp);
+    printf("Node with data %d deleted!\\n", key);
+}
+
+void insertLeft(struct Node **head, int key, int data) {
+    struct Node *temp = *head;
+    struct Node *new_node = (struct Node *)malloc(sizeof(struct Node));
+    new_node->data = data;
+
+    while (temp != NULL && temp->data != key) {
+        temp = temp->next;
+    }
+
+    if (temp == NULL) {
+        printf("Node with key %d not found!\\n", key);
+        free(new_node);
+        return;
+    }
+
+    if (temp == *head) {
+        insertAtFront(head, data);
+        return;
+    }
+
+    new_node->prev = temp->prev;
+    new_node->next = temp;
+    temp->prev->next = new_node;
+    temp->prev = new_node;
+
+    printf("Node with data %d inserted to the left of node with key %d!\\n", data, key);
+}
+
+void displayList(struct Node *node) {
+    if (node == NULL) {
+        printf("List is empty!\\n");
+        return;
+    }
+
+    while (node != NULL) {
+        printf("%d ", node->data);
+        node = node->next;
+    }
+    printf("\\n");
+}`;
+
+    const rawProgram8 = `#include<stdio.h>
+#include<stdlib.h> 
+
+struct BST
+{
+    int data;
+    struct BST *lchild;
+    struct BST *rchild;
+};
+typedef struct BST * NODE;
+
+NODE create()
+{
+    NODE temp;
+    temp = (NODE) malloc(sizeof(struct BST));
+    printf("\\nEnter The value: ");
+    scanf("%d", &temp->data);
+    temp->lchild = NULL;
+    temp->rchild = NULL;
+    return temp;
+}
+
+void insert(NODE root, NODE newnode);
+void inorder(NODE root);
+void preorder(NODE root);
+void postorder(NODE root);
+void search(NODE root);
+
+void insert(NODE root, NODE newnode)
+{
+    /*Note: if newnode->data ==  root->data it will be skipped. No duplicate nodes are allowed */
+    if (newnode->data < root->data)
+    {
+        if (root->lchild == NULL)
+            root->lchild = newnode;
+        else
+            insert(root->lchild, newnode);
+    }
+    if (newnode->data > root->data)
+    {
+        if (root->rchild == NULL)
+            root->rchild = newnode;
+        else
+            insert(root->rchild, newnode);
+    }
+}
+
+void search(NODE root)
+{
+    int key;
+    NODE cur;
+
+    if(root == NULL)
+    {
+        printf("\\nBST is empty.");
+        return;
+    }
+
+    printf("\\nEnter Element to be searched: ");
+    scanf("%d", &key);
+    cur = root;
+    while (cur != NULL)
+    {
+        if (cur->data == key)
+        {
+            printf("\\nKey element is present in BST");
+            return;
+        }
+        if (key < cur->data)
+            cur = cur->lchild;
+        else
+            cur = cur->rchild;
+    }
+    printf("\\nKey element is not found in the BST");
+}
+
+void inorder(NODE root)
+{
+    if(root != NULL)
+    {
+        inorder(root->lchild);
+        printf("%d ", root->data);
+        inorder(root->rchild);
+    }
+}
+
+void preorder(NODE root)
+{
+    if (root != NULL)
+    {
+        printf("%d ", root->data);
+        preorder(root->lchild);
+        preorder(root->rchild);
+    }
+}
+
+void postorder(NODE root)
+{
+    if (root != NULL)
+    {
+        postorder(root->lchild);
+        postorder(root->rchild);
+        printf("%d ", root->data);
+    }
+}
+
+void main()
+{
+    int ch, key, val, i, n;
+    NODE root = NULL, newnode;
+
+    while(1)
+    {
+        printf("\\n~~~~BST MENU~~~~");
+        printf("\\n1.Create a BST");
+        printf("\\n2.Search");
+        printf("\\n3.BST Traversals: ");
+        printf("\\n4.Exit");
+        printf("\\nEnter your choice: ");
+        scanf("%d", &ch);
+
+        switch(ch)
+        {
+            case 1: 
+                printf("\\nEnter the number of elements: ");
+                scanf("%d", &n);
+                for(i=1;i<=n;i++)
+                {
+                    newnode = create();
+                    if (root == NULL)
+                        root = newnode;
+                    else
+                        insert(root, newnode);
+                }
+                break;
+
+            case 2:
+                search(root);
+                break;
+
+            case 3: 
+                if (root == NULL)
+                    printf("\\nTree Is Not Created");
+                else
+                {
+                    printf("\\nThe Preorder display : ");
+                    preorder(root);
+                    printf("\\nThe Inorder display : ");
+                    inorder(root);
+                    printf("\\nThe Postorder display : ");
+                    postorder(root);
+                }
+                break;
+
+            case 4: 
+                exit(0);
+        }
+    }
+}`;
+
+    // App State Management
+    let currentProgram = 'p1';
+    let codeLinesP1 = rawProgram1.split("\n");
+    let codeLinesP2 = rawProgram2.split("\n");
+    let codeLinesP3 = rawProgram3.split("\n");
+    let codeLinesP4 = rawProgram4.split("\n");
+    let codeLinesP5 = rawProgram5.split("\n");
+    let codeLinesP6 = rawProgram6.split("\n");
+    let codeLinesP7 = rawProgram7.split("\n");
+    let codeLinesP8 = rawProgram8.split("\n");
+
+    // Program States
+    const MAX_SIZE = 20;
+    let arr = [10, 20, 30, 40];
+    let n = 4;
+    let isExecuting = false;
+
+    let p2LpsArray = [];
+    let p2Text = "ABABDABACDABABCABAB";
+    let p2Pat = "ABABCABAB";
+    let p2CurrentI = -1;
+    let p2CurrentJ = -1;
+
+    const STACK_MAX = 10;
+    let p3Stack = { items: [10, 20, 30], top: 2 };
+
+    let p4Infix = "(a+(b-c)*d)";
+    let p4Postfix = "";
+    let p4OpStack = [];
+    let p4CurrentChar = "";
+    let p4ScanIndex = -1;
+
+    const CQUEUE_MAX = 10;
+    let p5CQueue = new Array(CQUEUE_MAX).fill(null);
+    let p5Front = 0;
+    let p5Rear = 2;
+    p5CQueue[0] = 10; p5CQueue[1] = 20; p5CQueue[2] = 30;
+
+    let p6List = [10, 20, 30];
+    let p7List = [10, 20, 30];
+
+    // P8 BST State
+    let p8Root = null;
+
+    function init() {
+      switchProgram('p1');
+    }
+
+    function switchProgram(progId) {
+      if (isExecuting) return;
+      currentProgram = progId;
+
+      const navBtns = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'].map(id => document.getElementById(`navBtn${id.toUpperCase()}`));
+      const controlContainers = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'p8'].map(id => document.getElementById(`${id}Controls`));
+
+      const topTitle = document.getElementById('topHeaderTitle');
+      const topDesc = document.getElementById('topHeaderDesc');
+      const badgeMetric = document.getElementById('badgeMetric');
+      const sidebarStatus = document.getElementById('sidebarStatus');
+
+      // Reset nav classes
+      navBtns.forEach(btn => {
+        if (btn) {
+          btn.className = "w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-slate-800/80 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-700/60 transition-all";
+          btn.querySelector("span").className = "text-[10px] font-mono px-2 py-0.5 rounded-md bg-slate-700 text-slate-300";
+        }
+      });
+
+      // Hide all controls
+      controlContainers.forEach(c => { if (c) c.classList.add('hidden'); });
+
+      // Close editor if open
+      const viewContainer = document.getElementById("codeViewContainer");
+      if (viewContainer && viewContainer.classList.contains("hidden")) {
+        toggleEditSource();
+      }
+
+      if (progId === 'p1') {
+        const btn = document.getElementById('navBtnP1');
+        btn.className = "w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 border border-indigo-500/50 transition-all";
+        btn.querySelector("span").className = "text-[10px] font-mono px-2 py-0.5 rounded-md bg-indigo-800 text-indigo-100";
+        document.getElementById('p1Controls').classList.remove('hidden');
+
+        topTitle.innerText = "Program 1: Array Operations with Live Code Stepper";
+        topDesc.innerText = "Watch the exact C line highlight in real time while memory shifts happen on the stage.";
+        badgeMetric.innerText = "size = 20";
+        sidebarStatus.innerText = "size = 20";
+
+        document.getElementById('stageLegendLeft').innerHTML = `
+          <span class="text-slate-400">Total size: <strong class="text-slate-200">20</strong></span>
+          <span class="text-slate-400">Current count (n): <strong id="displayN" class="text-indigo-400 font-bold">${n}</strong></span>
+        `;
+        document.getElementById('stageLegendRight').innerHTML = `
+          <span class="flex items-center gap-1 text-emerald-400"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> pos: User (1-based)</span>
+          <span class="flex items-center gap-1 text-slate-400"><span class="w-2 h-2 rounded-full bg-slate-500"></span> [i]: C Index (0-based)</span>
+        `;
+
+        document.getElementById('codeModeLabel').innerText = "program1.c (Active Line Tracker)";
+        buildCodeLineList(codeLinesP1);
+        renderVisualStage();
+        logTrace("Switched to Program 1: Array Operations.", "info");
+
+      } else if (progId === 'p2') {
+        const btn = document.getElementById('navBtnP2');
+        btn.className = "w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-sky-600 text-white shadow-lg shadow-sky-600/30 border border-sky-500/50 transition-all";
+        btn.querySelector("span").className = "text-[10px] font-mono px-2 py-0.5 rounded-md bg-sky-800 text-sky-100";
+        document.getElementById('p2Controls').classList.remove('hidden');
+
+        topTitle.innerText = "Program 2: KMP String Matching with LPS Stepper";
+        topDesc.innerText = "Preprocess pattern into LPS table and perform O(N) text search without backtracking.";
+        badgeMetric.innerText = "Time: O(N + M)";
+        sidebarStatus.innerText = "KMP Search";
+
+        document.getElementById('stageLegendLeft').innerHTML = `<span class="text-slate-400">Matching Mode: <strong class="text-sky-300">Knuth-Morris-Pratt</strong></span>`;
+        document.getElementById('stageLegendRight').innerHTML = `
+          <span class="flex items-center gap-1 text-sky-400"><span class="w-2 h-2 rounded-full bg-sky-500"></span> i: text ptr</span>
+          <span class="flex items-center gap-1 text-amber-400"><span class="w-2 h-2 rounded-full bg-amber-500"></span> j: pattern ptr</span>
+        `;
+
+        document.getElementById('codeModeLabel').innerText = "program2.c (Active Line Tracker)";
+        buildCodeLineList(codeLinesP2);
+        renderP2Stage();
+        logTrace("Switched to Program 2: KMP String Matching.", "info");
+
+      } else if (progId === 'p3') {
+        const btn = document.getElementById('navBtnP3');
+        btn.className = "w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-purple-600 text-white shadow-lg shadow-purple-600/30 border border-purple-500/50 transition-all";
+        btn.querySelector("span").className = "text-[10px] font-mono px-2 py-0.5 rounded-md bg-purple-800 text-purple-100";
+        document.getElementById('p3Controls').classList.remove('hidden');
+
+        topTitle.innerText = "Program 3: Stack Operations & Palindrome Checker";
+        topDesc.innerText = "Simulate LIFO Stack operations (Push, Pop, Status) and Palindrome test with C code tracking.";
+        badgeMetric.innerText = "MAX = 10";
+        sidebarStatus.innerText = "MAX = 10";
+
+        document.getElementById('stageLegendLeft').innerHTML = `<span class="text-slate-400">Structure: <strong class="text-purple-300">Stack (LIFO)</strong></span>`;
+        document.getElementById('stageLegendRight').innerHTML = `<span class="flex items-center gap-1 text-purple-400"><span class="w-2 h-2 rounded-full bg-purple-500"></span> Top Pointer Tracker</span>`;
+
+        document.getElementById('codeModeLabel').innerText = "program3.c (Active Line Tracker)";
+        buildCodeLineList(codeLinesP3);
+        renderP3Stage();
+        logTrace("Switched to Program 3: Stack Operations & Palindrome.", "info");
+
+      } else if (progId === 'p4') {
+        const btn = document.getElementById('navBtnP4');
+        btn.className = "w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-orange-600 text-white shadow-lg shadow-orange-600/30 border border-orange-500/50 transition-all";
+        btn.querySelector("span").className = "text-[10px] font-mono px-2 py-0.5 rounded-md bg-orange-800 text-orange-100";
+        document.getElementById('p4Controls').classList.remove('hidden');
+
+        topTitle.innerText = "Program 4: Infix to Postfix Conversion with Stack";
+        topDesc.innerText = "Converting algebraic infix expressions to postfix format using operator precedence.";
+        badgeMetric.innerText = "MAX = 100";
+        sidebarStatus.innerText = "Infix to Postfix";
+
+        document.getElementById('stageLegendLeft').innerHTML = `<span class="text-slate-400">Algorithm: <strong class="text-orange-400">Operator Precedence Stack</strong></span>`;
+        document.getElementById('stageLegendRight').innerHTML = `<span class="flex items-center gap-1 text-orange-400"><span class="w-2 h-2 rounded-full bg-orange-500"></span> Current Token Scan</span>`;
+
+        document.getElementById('codeModeLabel').innerText = "program4.c (Active Line Tracker)";
+        buildCodeLineList(codeLinesP4);
+        renderP4Stage();
+        logTrace("Switched to Program 4: Infix to Postfix Conversion.", "info");
+
+      } else if (progId === 'p5') {
+        const btn = document.getElementById('navBtnP5');
+        btn.className = "w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-teal-600 text-white shadow-lg shadow-teal-600/30 border border-teal-500/50 transition-all";
+        btn.querySelector("span").className = "text-[10px] font-mono px-2 py-0.5 rounded-md bg-teal-800 text-teal-100";
+        document.getElementById('p5Controls').classList.remove('hidden');
+
+        topTitle.innerText = "Program 5: Circular Queue Operations with Array";
+        topDesc.innerText = "Wrap-around FIFO ring buffer utilizing modulo pointer advancement and full/empty checks.";
+        badgeMetric.innerText = "MAX = 10";
+        sidebarStatus.innerText = "Circular Queue";
+
+        document.getElementById('stageLegendLeft').innerHTML = `<span class="text-slate-400">Structure: <strong class="text-teal-400">Circular Ring Buffer</strong></span>`;
+        document.getElementById('stageLegendRight').innerHTML = `<span class="flex items-center gap-1 text-teal-400"><span class="w-2 h-2 rounded-full bg-teal-500"></span> Front / Rear Indices</span>`;
+
+        document.getElementById('codeModeLabel').innerText = "program5.c (Active Line Tracker)";
+        buildCodeLineList(codeLinesP5);
+        renderP5Stage();
+        logTrace("Switched to Program 5: Circular Queue Operations.", "info");
+
+      } else if (progId === 'p6') {
+        const btn = document.getElementById('navBtnP6');
+        btn.className = "w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-pink-600 text-white shadow-lg shadow-pink-600/30 border border-pink-500/50 transition-all";
+        btn.querySelector("span").className = "text-[10px] font-mono px-2 py-0.5 rounded-md bg-pink-800 text-pink-100";
+        document.getElementById('p6Controls').classList.remove('hidden');
+
+        topTitle.innerText = "Program 6: Singly Linked List (SLL) Operations";
+        topDesc.innerText = "Dynamic memory node chaining: Insert at Front, Key Deletion, Sequential Search, and Display.";
+        badgeMetric.innerText = "Heap (malloc)";
+        sidebarStatus.innerText = "Singly Linked List";
+
+        document.getElementById('stageLegendLeft').innerHTML = `<span class="text-slate-400">Structure: <strong class="text-pink-400">Singly Linked List</strong></span>`;
+        document.getElementById('stageLegendRight').innerHTML = `<span class="flex items-center gap-1 text-pink-400"><span class="w-2 h-2 rounded-full bg-pink-500"></span> HEAD Reference</span>`;
+
+        document.getElementById('codeModeLabel').innerText = "program6.c (Active Line Tracker)";
+        buildCodeLineList(codeLinesP6);
+        renderP6Stage();
+        logTrace("Switched to Program 6: Singly Linked List Operations.", "info");
+
+      } else if (progId === 'p7') {
+        const btn = document.getElementById('navBtnP7');
+        btn.className = "w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-blue-600 text-white shadow-lg shadow-blue-600/30 border border-blue-500/50 transition-all";
+        btn.querySelector("span").className = "text-[10px] font-mono px-2 py-0.5 rounded-md bg-blue-800 text-blue-100";
+        document.getElementById('p7Controls').classList.remove('hidden');
+
+        topTitle.innerText = "Program 7: Doubly Linked List (DLL) Operations";
+        topDesc.innerText = "Bidirectional links: Create/Insert Front, Key Deletion, and Insert to the Left of a specified Key.";
+        badgeMetric.innerText = "Bidirectional Pointers";
+        sidebarStatus.innerText = "Doubly Linked List";
+
+        document.getElementById('stageLegendLeft').innerHTML = `<span class="text-slate-400">Structure: <strong class="text-blue-400">Doubly Linked List</strong></span>`;
+        document.getElementById('stageLegendRight').innerHTML = `<span class="flex items-center gap-1 text-blue-400"><span class="w-2 h-2 rounded-full bg-blue-500"></span> prev &harr; data &harr; next</span>`;
+
+        document.getElementById('codeModeLabel').innerText = "program7.c (Active Line Tracker)";
+        buildCodeLineList(codeLinesP7);
+        renderP7Stage();
+        logTrace("Switched to Program 7: Doubly Linked List Operations.", "info");
+
+      } else if (progId === 'p8') {
+        const btn = document.getElementById('navBtnP8');
+        btn.className = "w-full text-left px-3.5 py-3 rounded-xl text-xs font-semibold flex items-center gap-3 bg-emerald-600 text-white shadow-lg shadow-emerald-600/30 border border-emerald-500/50 transition-all";
+        btn.querySelector("span").className = "text-[10px] font-mono px-2 py-0.5 rounded-md bg-emerald-800 text-emerald-100";
+        document.getElementById('p8Controls').classList.remove('hidden');
+
+        topTitle.innerText = "Program 8: Binary Search Tree (BST) Operations";
+        topDesc.innerText = "Binary Search Tree: Recursive insert, Inorder, Preorder, Postorder Traversals, Search, and Height.";
+        badgeMetric.innerText = "Search: O(log N)";
+        sidebarStatus.innerText = "Binary Search Tree";
+
+        document.getElementById('stageLegendLeft').innerHTML = `<span class="text-slate-400">Tree: <strong class="text-emerald-400">Binary Search Tree</strong></span>`;
+        document.getElementById('stageLegendRight').innerHTML = `<span class="flex items-center gap-1 text-emerald-400"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> lchild &lt; root &lt; rchild</span>`;
+
+        document.getElementById('codeModeLabel').innerText = "program8.c (Active Line Tracker)";
+        buildCodeLineList(codeLinesP8);
+        if (!p8Root) {
+          // Pre-populate with default syllabus tree
+          opP8LoadSyllabusSequence(false);
+        } else {
+          renderP8Stage();
+        }
+        logTrace("Switched to Program 8: Binary Search Tree Operations.", "info");
+      }
+    }
+
+    function buildCodeLineList(lines) {
+      const container = document.getElementById('codeLineList');
+      container.innerHTML = "";
+      lines.forEach((line, index) => {
+        const lineDiv = document.createElement("div");
+        lineDiv.id = `code-line-${index + 1}`;
+        lineDiv.className = "code-line flex py-0.5 px-2 rounded font-mono";
+        lineDiv.innerHTML = `
+          <span class="w-8 shrink-0 select-none text-slate-600 text-right pr-3 font-mono">${index + 1}</span>
+          <span class="whitespace-pre flex-1">${escapeHtml(line)}</span>
+        `;
+        container.appendChild(lineDiv);
+      });
+      document.getElementById('codeEditor').value = lines.join("\n");
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    function getDelay() {
+      return parseInt(document.getElementById('stepSpeed').value) || 550;
+    }
+
+    async function highlightLine(lineNum, type = "active") {
+      document.querySelectorAll(".code-line").forEach(el => {
+        el.className = "code-line flex py-0.5 px-2 rounded font-mono";
+      });
+
+      const lineEl = document.getElementById(`code-line-${lineNum}`);
+      if (lineEl) {
+        lineEl.className = `code-line flex py-0.5 px-2 rounded font-mono ${type}`;
+        lineEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+      await new Promise(r => setTimeout(r, getDelay()));
+    }
+
+    function clearHighlight() {
+      document.querySelectorAll(".code-line").forEach(el => {
+        el.className = "code-line flex py-0.5 px-2 rounded font-mono";
+      });
+    }
+
+    // ==========================================
+    // PROGRAM 1 TO 7 LOGIC HANDLERS
+    // ==========================================
+    function updateHelpers() {
+      const dispN = document.getElementById('displayN');
+      if (dispN) dispN.innerText = n;
+      const rHelper = document.getElementById('posRangeHelper');
+      if (rHelper) rHelper.innerText = n >= MAX_SIZE ? "Array Full" : `1 to ${n + 1}`;
+      const dHelper = document.getElementById('posDeleteHelper');
+      if (dHelper) dHelper.innerText = n === 0 ? "Array Empty" : `1 to ${n}`;
+    }
+
+    function renderVisualStage() {
+      if (currentProgram !== 'p1') return;
+      const container = document.getElementById('visualCanvas');
+      updateHelpers();
+      let html = '<div class="flex items-center gap-2 max-w-full py-2">';
+      for (let i = 0; i < MAX_SIZE; i++) {
+        const isOccupied = i < n;
+        const val = isOccupied ? arr[i] : '';
+        html += `<div id="slot-${i}" class="flex flex-col items-center shrink-0 transition-all duration-300"><span class="text-[9px] font-mono font-bold text-emerald-400 mb-0.5">pos:${i + 1}</span><div class="w-11 h-12 rounded-lg border-2 ${isOccupied ? 'border-indigo-500/80 bg-indigo-950/40 text-indigo-100 shadow-md shadow-indigo-950/50' : 'border-dashed border-slate-800 bg-slate-900/20 text-slate-700'} flex items-center justify-center font-mono font-bold text-xs transition-all duration-200">${val}</div><span class="text-[8px] font-mono text-slate-500 mt-0.5">[${i}]</span></div>`;
+      }
+      html += '</div>';
+      container.innerHTML = html;
+    }
+
+    function setButtonsDisabledP1(state) {
+      isExecuting = state;
+      document.getElementById('btnRunInsert').disabled = state;
+      document.getElementById('btnRunDelete').disabled = state;
+      document.getElementById('btnRunDisplay').disabled = state;
+    }
+
+    async function opInsertStepByStep() {
+      if (isExecuting) return;
+      const eleInput = document.getElementById('insertEle').value.trim();
+      const posInput = document.getElementById('insertPos').value.trim();
+      if (eleInput === "" || posInput === "") return logTrace("Input Error: Enter BOTH Element and Position.", "error");
+      const ele = parseInt(eleInput);
+      const pos = parseInt(posInput);
+      if (isNaN(ele) || isNaN(pos)) return logTrace("Element and Position must be integers.", "error");
+      if (n >= MAX_SIZE) return logTrace("Overflow: size limit (20) reached.", "error");
+      if (pos < 1 || pos > n + 1) return logTrace(`Position Error: Valid position is 1 to ${n + 1}.`, "error");
+
+      setButtonsDisabledP1(true);
+      await highlightLine(24);
+      await highlightLine(25);
+      await highlightLine(37);
+      await highlightLine(39);
+      await highlightLine(41);
+      await highlightLine(43);
+      await highlightLine(44);
+      for (let i = n - 1; i >= pos - 1; i--) {
+        await highlightLine(44);
+        highlightSlot(i, "bg-amber-950/80 border-amber-400 text-amber-200 scale-105");
+        logTrace(`Shift right: arr[${i+1}] = arr[${i}] (${arr[i]})`);
+        await highlightLine(46);
+        arr[i + 1] = arr[i];
+        renderVisualStage();
+      }
+      arr[pos - 1] = ele;
+      renderVisualStage();
+      highlightSlot(pos - 1, "bg-emerald-950 border-emerald-400 text-emerald-100 scale-110", 800);
+      await highlightLine(48);
+      n = n + 1;
+      renderVisualStage();
+      logTrace(`arr[${pos - 1}] = ${ele}; (New size n = ${n})`, "info");
+      await highlightLine(49);
+      await highlightLine(50);
+      await highlightLine(26);
+      clearHighlight();
+      setButtonsDisabledP1(false);
+    }
+
+    async function opDeleteStepByStep() {
+      if (isExecuting) return;
+      const posInput = document.getElementById('deletePos').value.trim();
+      if (posInput === "") return logTrace("Input Error: Specify a Position to delete.", "error");
+      const pos = parseInt(posInput);
+      if (isNaN(pos)) return logTrace("Position must be a valid integer.", "error");
+      if (n === 0) return logTrace("Underflow: Array is empty.", "error");
+      if (pos < 1 || pos > n) return logTrace(`Position Error: Valid range is 1 to ${n}.`, "error");
+
+      setButtonsDisabledP1(true);
+      await highlightLine(27, "active-delete");
+      await highlightLine(28, "active-delete");
+      await highlightLine(53, "active-delete");
+      await highlightLine(55, "active-delete");
+      await highlightLine(57, "active-delete");
+      const deletedVal = arr[pos - 1];
+      highlightSlot(pos - 1, "bg-rose-950/80 border-rose-500 text-rose-200 scale-105");
+      await highlightLine(58, "active-delete");
+      for (let i = pos - 1; i < n - 1; i++) {
+        await highlightLine(58, "active-delete");
+        logTrace(`Shift left: arr[${i}] = arr[${i+1}] (${arr[i+1]})`);
+        await highlightLine(60, "active-delete");
+        arr[i] = arr[i + 1];
+        renderVisualStage();
+        highlightSlot(i, "bg-amber-950/80 border-amber-400 text-amber-200 scale-105");
+      }
+      n = n - 1;
+      renderVisualStage();
+      logTrace(`Deleted ${deletedVal} from pos ${pos}. (new n = ${n})`, "info");
+      await highlightLine(62, "active-delete");
+      await highlightLine(63, "active-delete");
+      await highlightLine(29, "active-delete");
+      clearHighlight();
+      setButtonsDisabledP1(false);
+    }
+
+    async function opDisplayStepByStep() {
+      if (isExecuting) return;
+      if (n === 0) return logTrace("display(arr, n): Array is empty.", "info");
+      setButtonsDisabledP1(true);
+      await highlightLine(30, "active-display");
+      await highlightLine(31, "active-display");
+      await highlightLine(66, "active-display");
+      await highlightLine(68, "active-display");
+      let out = "";
+      for (let i = 0; i < n; i++) {
+        await highlightLine(69, "active-display");
+        highlightSlot(i, "bg-emerald-600/40 border-emerald-400 scale-105", 250);
+        out += arr[i] + " ";
+        await highlightLine(70, "active-display");
+      }
+      await highlightLine(71, "active-display");
+      logTrace(`Array Display: ${out}`, "info");
+      await highlightLine(72, "active-display");
+      await highlightLine(32, "active-display");
+      clearHighlight();
+      setButtonsDisabledP1(false);
+    }
+
+    function opInitArray() {
+      const input = document.getElementById('initValues').value.trim();
+      const parsed = input.split(',').map(x => parseInt(x.trim())).filter(x => !isNaN(x));
+      if (parsed.length === 0 || parsed.length > MAX_SIZE) return logTrace(`Invalid count (1 to ${MAX_SIZE}).`, "error");
+      arr = [...parsed]; n = parsed.length; renderVisualStage();
+      logTrace(`Initialized array with ${n} elements.`, "info");
+    }
+
+    function opReset() {
+      arr = [10, 20, 30, 40]; n = 4; renderVisualStage(); clearHighlight();
+    }
+
+    function highlightSlot(idx, styleClasses, duration = 350) {
+      const el = document.getElementById(`slot-${idx}`);
+      if (!el) return;
+      const box = el.querySelector('div');
+      if (!box) return;
+      const original = box.className;
+      box.className = `w-11 h-12 rounded-lg border-2 flex items-center justify-center font-mono font-bold text-xs transition-all duration-200 ${styleClasses}`;
+      setTimeout(() => { box.className = original; }, duration);
+    }
+
+    // P2 KMP logic
+    function renderP2Stage() {
+      if (currentProgram !== 'p2') return;
+      const container = document.getElementById('visualCanvas');
+      p2Text = document.getElementById('kmpText').value.trim();
+      p2Pat = document.getElementById('kmpPat').value.trim();
+      let html = '<div class="flex flex-col gap-4 w-full py-1"><div><span class="text-[10px] font-mono text-slate-400 block mb-1">Text String (N = ' + p2Text.length + ')</span><div class="flex items-center gap-1 overflow-x-auto pb-1">';
+      for (let i = 0; i < p2Text.length; i++) {
+        const isCurrent = i === p2CurrentI;
+        html += `<div class="flex flex-col items-center shrink-0"><span class="text-[8px] font-mono ${isCurrent ? 'text-sky-400 font-bold' : 'text-slate-600'}">i:${i}</span><div id="txtBox-${i}" class="w-8 h-9 rounded border ${isCurrent ? 'border-sky-400 bg-sky-950/80 text-sky-200 font-bold scale-105 shadow-md shadow-sky-500/20' : 'border-slate-800 bg-slate-900 text-slate-200'} flex items-center justify-center font-mono text-xs transition-all">${p2Text[i]}</div></div>`;
+      }
+      html += '</div></div><div><span class="text-[10px] font-mono text-slate-400 block mb-1">Pattern String (M = ' + p2Pat.length + ')</span><div class="flex items-center gap-1 overflow-x-auto pb-1">';
+      for (let j = 0; j < p2Pat.length; j++) {
+        const isCurrent = j === p2CurrentJ;
+        const lpsVal = p2LpsArray[j] !== undefined ? p2LpsArray[j] : '-';
+        html += `<div class="flex flex-col items-center shrink-0"><span class="text-[8px] font-mono ${isCurrent ? 'text-amber-400 font-bold' : 'text-slate-600'}">j:${j}</span><div id="patBox-${j}" class="w-8 h-9 rounded border ${isCurrent ? 'border-amber-400 bg-amber-950/80 text-amber-200 font-bold scale-105 shadow-md shadow-amber-500/20' : 'border-slate-800 bg-slate-900 text-slate-200'} flex items-center justify-center font-mono text-xs transition-all">${p2Pat[j]}</div><span class="text-[8px] font-mono text-amber-400/90 mt-0.5">LPS:${lpsVal}</span></div>`;
+      }
+      html += '</div></div></div>';
+      container.innerHTML = html;
+    }
+
+    function setButtonsDisabledP2(state) {
+      isExecuting = state;
+      document.getElementById('btnRunLPS').disabled = state;
+      document.getElementById('btnRunKMP').disabled = state;
+    }
+
+    async function opRunLPSOnly() {
+      if (isExecuting) return;
+      p2Pat = document.getElementById('kmpPat').value.trim();
+      if (!p2Pat) return logTrace("Error: Pattern string cannot be empty.", "error");
+      setButtonsDisabledP2(true);
+      await highlightLine(5, "active-lps");
+      await highlightLine(6, "active-lps");
+      let length = 0; const M = p2Pat.length;
+      p2LpsArray = new Array(M).fill(undefined);
+      await highlightLine(7, "active-lps");
+      p2LpsArray[0] = 0; renderP2Stage();
+      await highlightLine(10, "active-lps");
+      let i = 1;
+      while (i < M) {
+        await highlightLine(11, "active-lps");
+        p2CurrentI = -1; p2CurrentJ = i; renderP2Stage();
+        await highlightLine(12, "active-lps");
+        if (p2Pat[i] === p2Pat[length]) {
+          length++; await highlightLine(13, "active-lps");
+          p2LpsArray[i] = length; renderP2Stage();
+          await highlightLine(14, "active-lps"); i++; await highlightLine(15, "active-lps");
+        } else {
+          await highlightLine(16, "active-lps"); await highlightLine(17, "active-lps");
+          if (length !== 0) { length = p2LpsArray[length - 1]; await highlightLine(18, "active-lps"); }
+          else { p2LpsArray[i] = 0; renderP2Stage(); await highlightLine(20, "active-lps"); i++; await highlightLine(21, "active-lps"); }
+        }
+      }
+      p2CurrentJ = -1; renderP2Stage(); clearHighlight(); setButtonsDisabledP2(false);
+      logTrace(`LPS Array: [${p2LpsArray.join(', ')}]`, "info");
+    }
+
+    async function opRunKMPSearch() {
+      if (isExecuting) return;
+      p2Text = document.getElementById('kmpText').value.trim();
+      p2Pat = document.getElementById('kmpPat').value.trim();
+      if (!p2Text || !p2Pat) return logTrace("Provide text and pattern.", "error");
+      setButtonsDisabledP2(true);
+      await highlightLine(29, "active-kmp");
+      await highlightLine(30, "active-kmp");
+      await highlightLine(31, "active-kmp");
+      const M = p2Pat.length, N = p2Text.length;
+      await highlightLine(34, "active-kmp");
+      await highlightLine(37, "active-kmp");
+      let len = 0; p2LpsArray = new Array(M).fill(0);
+      let pI = 1;
+      while (pI < M) {
+        if (p2Pat[pI] === p2Pat[len]) { len++; p2LpsArray[pI] = len; pI++; }
+        else { if (len !== 0) len = p2LpsArray[len - 1]; else { p2LpsArray[pI] = 0; pI++; } }
+      }
+      renderP2Stage();
+      await highlightLine(39, "active-kmp");
+      await highlightLine(40, "active-kmp");
+      let i = 0, j = 0, matchesFound = 0;
+      while (i < N) {
+        p2CurrentI = i; p2CurrentJ = j; renderP2Stage();
+        await highlightLine(41, "active-kmp");
+        await highlightLine(42, "active-kmp");
+        if (p2Pat[j] === p2Text[i]) {
+          i++; j++;
+          await highlightLine(43, "active-kmp");
+          await highlightLine(44, "active-kmp");
+        }
+        await highlightLine(47, "active-kmp");
+        if (j === M) {
+          matchesFound++;
+          logTrace(`Pattern found at index ${i - j}`, "info");
+          await highlightLine(48, "active-kmp");
+          j = p2LpsArray[j - 1];
+          await highlightLine(49, "active-kmp");
+        } else if (i < N && p2Pat[j] !== p2Text[i]) {
+          await highlightLine(53, "active-kmp");
+          await highlightLine(55, "active-kmp");
+          if (j !== 0) { j = p2LpsArray[j - 1]; await highlightLine(56, "active-kmp"); }
+          else { i = i + 1; await highlightLine(58, "active-kmp"); }
+        }
+      }
+      p2CurrentI = -1; p2CurrentJ = -1; renderP2Stage(); clearHighlight(); setButtonsDisabledP2(false);
+      logTrace(`KMP completed. Occurrences: ${matchesFound}`, "info");
+    }
+
+    function opResetP2() {
+      document.getElementById('kmpText').value = "ABABDABACDABABCABAB";
+      document.getElementById('kmpPat').value = "ABABCABAB";
+      p2LpsArray = []; p2CurrentI = -1; p2CurrentJ = -1; renderP2Stage(); clearHighlight();
+    }
+
+    // P3 Stack logic
+    function renderP3Stage() {
+      if (currentProgram !== 'p3') return;
+      const container = document.getElementById('visualCanvas');
+      const badge = document.getElementById('p3TopBadge');
+      if (p3Stack.top === -1) { badge.innerText = "-1 (Empty)"; badge.className = "px-2 py-0.5 rounded font-mono text-xs bg-slate-800 text-slate-400 border border-slate-700"; }
+      else if (p3Stack.top === STACK_MAX - 1) { badge.innerText = `${p3Stack.top} (FULL)`; badge.className = "px-2 py-0.5 rounded font-mono text-xs bg-rose-950 text-rose-300 border border-rose-800"; }
+      else { badge.innerText = `${p3Stack.top}`; badge.className = "px-2 py-0.5 rounded font-mono text-xs bg-purple-950 text-purple-300 border border-purple-800"; }
+      let html = '<div class="flex items-center justify-center w-full py-2"><div class="flex flex-col-reverse items-center w-52 border-b-4 border-l-4 border-r-4 border-purple-800/80 bg-slate-950/70 p-2 rounded-b-xl gap-1.5 shadow-2xl">';
+      for (let i = 0; i < STACK_MAX; i++) {
+        const isOccupied = i <= p3Stack.top;
+        const val = isOccupied ? p3Stack.items[i] : '';
+        const isTop = i === p3Stack.top;
+        html += `<div id="stackSlot-${i}" class="w-full h-8 rounded border ${isOccupied ? (isTop ? 'border-purple-400 bg-purple-950/90 text-purple-100 font-bold shadow-md shadow-purple-500/30' : 'border-purple-800/50 bg-purple-950/40 text-purple-300') : 'border-dashed border-slate-800/60 bg-slate-900/30 text-slate-700'} flex items-center justify-between px-3 text-xs font-mono transition-all"><span class="text-[10px] text-slate-500">[${i}]</span><span class="font-bold">${val}</span>${isTop ? '<span class="text-[9px] font-bold px-1 py-0.2 rounded bg-purple-600 text-white shadow">TOP</span>' : '<span class="w-6"></span>'}</div>`;
+      }
+      html += '</div></div>';
+      container.innerHTML = html;
+    }
+
+    function setButtonsDisabledP3(state) {
+      isExecuting = state;
+      document.getElementById('btnP3Push').disabled = state;
+      document.getElementById('btnP3Pop').disabled = state;
+      document.getElementById('btnP3Status').disabled = state;
+      document.getElementById('btnP3Pal').disabled = state;
+    }
+
+    async function opP3Push() {
+      const valInput = document.getElementById('p3PushVal').value.trim();
+      if (valInput === "") return logTrace("Enter integer.", "error");
+      const val = parseInt(valInput);
+      setButtonsDisabledP3(true);
+      await highlightLine(118, "active-stack");
+      await highlightLine(121, "active-stack");
+      await highlightLine(37, "active-stack");
+      if (p3Stack.top === STACK_MAX - 1) {
+        await highlightLine(39, "active-stack");
+        logTrace("Stack Overflow!", "error");
+      } else {
+        p3Stack.top++; p3Stack.items[p3Stack.top] = val; renderP3Stage();
+        await highlightLine(41, "active-stack");
+        logTrace(`Pushed ${val} onto stack.`, "info");
+      }
+      clearHighlight(); setButtonsDisabledP3(false);
+    }
+
+    async function opP3Pop() {
+      setButtonsDisabledP3(true);
+      await highlightLine(124, "active-stack");
+      await highlightLine(125, "active-stack");
+      await highlightLine(47, "active-stack");
+      if (p3Stack.top === -1) {
+        await highlightLine(49, "active-stack");
+        logTrace("Stack Underflow!", "error");
+      } else {
+        const popped = p3Stack.items[p3Stack.top]; p3Stack.top--; renderP3Stage();
+        await highlightLine(52, "active-stack");
+        logTrace(`Popped: ${popped}`, "info");
+      }
+      clearHighlight(); setButtonsDisabledP3(false);
+    }
+
+    async function opP3DisplayStatus() {
+      setButtonsDisabledP3(true);
+      await highlightLine(142, "active-stack");
+      await highlightLine(80, "active-stack");
+      if (p3Stack.top === -1) logTrace("Stack is empty.", "info");
+      else if (p3Stack.top === STACK_MAX - 1) logTrace("Stack is full.", "info");
+      else logTrace("Stack is neither empty nor full.", "info");
+      clearHighlight(); setButtonsDisabledP3(false);
+    }
+
+    async function opP3CheckPalindrome() {
+      const str = document.getElementById('p3PalString').value.trim();
+      if (!str) return logTrace("Enter string.", "error");
+      setButtonsDisabledP3(true);
+      await highlightLine(131, "active-stack");
+      let s = [];
+      for (let i = 0; i < str.length; i++) s.push(str[i]);
+      let isPal = true;
+      for (let i = 0; i < str.length; i++) {
+        if (s.pop() !== str[i]) { isPal = false; break; }
+      }
+      if (isPal) logTrace(`"${str}" is a PALINDROME.`, "info");
+      else logTrace(`"${str}" is NOT a palindrome.`, "error");
+      clearHighlight(); setButtonsDisabledP3(false);
+    }
+
+    // P4 Infix logic
+    function renderP4Stage() {
+      if (currentProgram !== 'p4') return;
+      const container = document.getElementById('visualCanvas');
+      let html = '<div class="flex flex-col gap-4 w-full py-1"><div><span class="text-[10px] font-mono text-slate-400 block mb-1">Infix Token Scanner:</span><div class="flex items-center gap-1.5 overflow-x-auto pb-1">';
+      for (let i = 0; i < p4Infix.length; i++) {
+        const isCurrent = i === p4ScanIndex;
+        html += `<div class="flex flex-col items-center shrink-0"><span class="text-[8px] font-mono ${isCurrent ? 'text-orange-400 font-bold' : 'text-slate-600'}">i:${i}</span><div class="w-8 h-9 rounded border ${isCurrent ? 'border-orange-400 bg-orange-950/80 text-orange-200 font-bold scale-110 shadow-md shadow-orange-500/30' : 'border-slate-800 bg-slate-900 text-slate-200'} flex items-center justify-center font-mono text-xs transition-all">${p4Infix[i]}</div></div>`;
+      }
+      html += '</div></div><div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full"><div class="flex-1 bg-slate-900/80 border border-slate-800 p-2.5 rounded-lg"><div class="flex items-center justify-between mb-1.5"><span class="text-[10px] font-mono text-slate-400">Operator Stack:</span><span class="text-[10px] font-mono text-orange-300">top = ' + (p4OpStack.length - 1) + '</span></div><div class="flex items-center gap-1.5 overflow-x-auto min-h-[36px]">';
+      if (p4OpStack.length === 0) html += '<span class="text-[11px] font-mono text-slate-600 italic">Stack is empty</span>';
+      else { p4OpStack.forEach((op, idx) => { const isTop = idx === p4OpStack.length - 1; html += `<div class="px-2.5 py-1 rounded border ${isTop ? 'border-orange-400 bg-orange-950 text-orange-200 font-bold shadow' : 'border-slate-700 bg-slate-800 text-slate-300'} font-mono text-xs flex items-center gap-1"><span>${op}</span>${isTop ? '<span class="text-[8px] px-1 bg-orange-500/20 text-orange-300 rounded border border-orange-400/40">TOP</span>' : ''}</div>`; }); }
+      html += '</div></div><div class="flex-1 bg-slate-900/80 border border-slate-800 p-2.5 rounded-lg"><span class="text-[10px] font-mono text-slate-400 block mb-1.5">Generated Postfix:</span><div class="min-h-[36px] flex items-center px-3 py-1 bg-slate-950 rounded border border-slate-800 font-mono text-sm font-bold text-emerald-400 tracking-wider overflow-x-auto">' + (p4Postfix || '<span class="text-slate-600 font-normal text-xs italic">Waiting...</span>') + '</div></div></div></div>';
+      container.innerHTML = html;
+    }
+
+    function setButtonsDisabledP4(state) { isExecuting = state; document.getElementById('btnRunP4').disabled = state; }
+    function getPrecedenceJS(op) { switch(op) { case '^': return 3; case '*': case '/': case '%': return 2; case '+': case '-': return 1; default: return 0; } }
+
+    async function opRunInfixToPostfix() {
+      const inputStr = document.getElementById('p4InfixInput').value.trim();
+      if (!inputStr) return logTrace("Please enter an infix expression.", "error");
+      setButtonsDisabledP4(true);
+      p4Infix = inputStr; p4Postfix = ""; p4OpStack = []; p4ScanIndex = -1; renderP4Stage();
+      await highlightLine(75, "active-infix");
+      let i = 0, j = 0, localStack = [], localPostfix = "";
+      while (i < p4Infix.length) {
+        p4ScanIndex = i; const currentChar = p4Infix[i]; renderP4Stage();
+        await highlightLine(81, "active-infix");
+        if ((currentChar >= 'a' && currentChar <= 'z') || (currentChar >= 'A' && currentChar <= 'Z')) {
+          localPostfix += currentChar; p4Postfix = localPostfix; renderP4Stage();
+          await highlightLine(86, "active-infix"); j++;
+        } else if (currentChar === '(') {
+          localStack.push(currentChar); p4OpStack = [...localStack]; renderP4Stage();
+          await highlightLine(89, "active-infix");
+        } else if (currentChar === ')') {
+          while (localStack.length > 0 && localStack[localStack.length - 1] !== '(') {
+            localPostfix += localStack.pop(); p4Postfix = localPostfix; p4OpStack = [...localStack]; renderP4Stage();
+            await highlightLine(93, "active-infix"); j++;
+          }
+          if (localStack.length > 0 && localStack[localStack.length - 1] === '(') {
+            localStack.pop(); p4OpStack = [...localStack]; renderP4Stage();
+            await highlightLine(96, "active-infix");
+          }
+        } else {
+          while (localStack.length > 0 && getPrecedenceJS(localStack[localStack.length - 1]) >= getPrecedenceJS(currentChar)) {
+            localPostfix += localStack.pop(); p4Postfix = localPostfix; p4OpStack = [...localStack]; renderP4Stage();
+            await highlightLine(104, "active-infix"); j++;
+          }
+          localStack.push(currentChar); p4OpStack = [...localStack]; renderP4Stage();
+          await highlightLine(107, "active-infix");
+        }
+        i++;
+      }
+      while (localStack.length > 0) {
+        localPostfix += localStack.pop(); p4Postfix = localPostfix; p4OpStack = [...localStack]; renderP4Stage();
+        await highlightLine(120, "active-infix"); j++;
+      }
+      await highlightLine(148, "active-infix");
+      logTrace(`Postfix Output: ${p4Postfix}`, "info");
+      clearHighlight(); setButtonsDisabledP4(false);
+    }
+
+    function opResetP4() {
+      document.getElementById('p4InfixInput').value = "(a+(b-c)*d)";
+      p4Infix = "(a+(b-c)*d)"; p4Postfix = ""; p4OpStack = []; p4ScanIndex = -1; renderP4Stage(); clearHighlight();
+    }
+
+    // P5 Circular Queue logic
+    function renderP5Stage() {
+      if (currentProgram !== 'p5') return;
+      const container = document.getElementById('visualCanvas');
+      document.getElementById('p5FrontBadge').innerText = p5Front;
+      document.getElementById('p5RearBadge').innerText = p5Rear;
+      let html = '<div class="flex flex-col items-center gap-3 w-full py-1"><div class="flex items-center gap-1.5 overflow-x-auto max-w-full pb-2">';
+      for (let i = 0; i < CQUEUE_MAX; i++) {
+        const val = p5CQueue[i]; const isOccupied = val !== null; const isF = i === p5Front; const isR = i === p5Rear;
+        html += `<div id="cqSlot-${i}" class="flex flex-col items-center shrink-0 transition-all duration-300"><div class="flex gap-1 mb-1 h-4">${isF ? '<span class="text-[9px] font-bold px-1 rounded bg-teal-600 text-white shadow">F</span>' : ''}${isR ? '<span class="text-[9px] font-bold px-1 rounded bg-amber-500 text-slate-950 shadow">R</span>' : ''}</div><div class="w-12 h-14 rounded-lg border-2 ${isOccupied ? 'border-teal-500/80 bg-teal-950/40 text-teal-100 shadow-md shadow-teal-950/50' : 'border-dashed border-slate-800 bg-slate-900/20 text-slate-700'} flex items-center justify-center font-mono font-bold text-xs transition-all duration-200">${isOccupied ? val : ''}</div><span class="text-[9px] font-mono text-slate-500 mt-1">[${i}]</span></div>`;
+      }
+      html += '</div></div>';
+      container.innerHTML = html;
+    }
+
+    function isFullJS() { return (p5Front === 0 && p5Rear === CQUEUE_MAX - 1) || (p5Front === p5Rear + 1); }
+    function isEmptyJS() { return p5Front === -1; }
+    function setButtonsDisabledP5(state) {
+      isExecuting = state;
+      document.getElementById('btnP5Insert').disabled = state;
+      document.getElementById('btnP5Del').disabled = state;
+      document.getElementById('btnP5Peek').disabled = state;
+      document.getElementById('btnP5Display').disabled = state;
+    }
+
+    async function opP5Insert() {
+      const valInput = document.getElementById('p5InsertVal').value.trim();
+      if (valInput === "") return logTrace("Enter integer.", "error");
+      const item = parseInt(valInput);
+      setButtonsDisabledP5(true);
+      await highlightLine(61, "active-cqueue");
+      if (isFullJS()) {
+        await highlightLine(65, "active-cqueue");
+        logTrace("Queue Overflow!", "error");
+      } else {
+        if (p5Front === -1) p5Front = 0;
+        if (p5Rear === CQUEUE_MAX - 1) p5Rear = 0; else p5Rear++;
+        p5CQueue[p5Rear] = item; renderP5Stage();
+        await highlightLine(75, "active-cqueue");
+        logTrace(`Inserted ${item} at [${p5Rear}].`, "info");
+      }
+      clearHighlight(); setButtonsDisabledP5(false);
+    }
+
+    async function opP5Delete() {
+      setButtonsDisabledP5(true);
+      await highlightLine(80, "active-cqueue");
+      if (isEmptyJS()) logTrace("Queue Underflow!", "error");
+      else {
+        const item = p5CQueue[p5Front]; p5CQueue[p5Front] = null;
+        if (p5Front === p5Rear) { p5Front = -1; p5Rear = -1; }
+        else if (p5Front === CQUEUE_MAX - 1) p5Front = 0; else p5Front++;
+        renderP5Stage();
+        await highlightLine(98, "active-cqueue");
+        logTrace(`Deleted: ${item}`, "info");
+      }
+      clearHighlight(); setButtonsDisabledP5(false);
+    }
+
+    async function opP5Peek() {
+      setButtonsDisabledP5(true);
+      await highlightLine(122, "active-cqueue");
+      if (isEmptyJS()) logTrace("Queue Underflow!", "error");
+      else logTrace(`Front item: ${p5CQueue[p5Front]}`, "info");
+      clearHighlight(); setButtonsDisabledP5(false);
+    }
+
+    async function opP5Display() {
+      setButtonsDisabledP5(true);
+      await highlightLine(133, "active-cqueue");
+      if (isEmptyJS()) logTrace("Queue is empty.", "info");
+      else {
+        let i = p5Front, outStr = "";
+        if (p5Front <= p5Rear) while (i <= p5Rear) outStr += p5CQueue[i++] + " ";
+        else { while (i <= CQUEUE_MAX - 1) outStr += p5CQueue[i++] + " "; i = 0; while (i <= p5Rear) outStr += p5CQueue[i++] + " "; }
+        logTrace(`Queue elements: ${outStr}`, "info");
+      }
+      clearHighlight(); setButtonsDisabledP5(false);
+    }
+
+    function opResetP5() {
+      p5CQueue = new Array(CQUEUE_MAX).fill(null); p5Front = 0; p5Rear = 2; p5CQueue[0] = 10; p5CQueue[1] = 20; p5CQueue[2] = 30;
+      renderP5Stage(); clearHighlight();
+    }
+
+    // P6 SLL logic
+    function renderP6Stage() {
+      if (currentProgram !== 'p6') return;
+      const container = document.getElementById('visualCanvas');
+      document.getElementById('p6CountBadge').innerText = `${p6List.length} items`;
+      if (p6List.length === 0) {
+        container.innerHTML = '<div class="font-mono text-sm text-slate-500">head &rarr; NULL (Empty)</div>';
+        return;
+      }
+      let html = '<div class="flex items-center gap-2 max-w-full overflow-x-auto py-3 px-2"><span class="text-pink-400 font-mono text-xs font-bold">head &rarr;</span>';
+      p6List.forEach((val, idx) => {
+        html += `<div id="sllNode-${idx}" class="flex items-center shrink-0"><div class="flex items-stretch border-2 border-pink-500/80 bg-slate-900 rounded-lg overflow-hidden"><div class="px-3 py-2 text-xs font-mono font-bold bg-pink-950/50 text-pink-100">${val}</div><div class="px-2 py-2 text-[10px] font-mono bg-slate-950 text-slate-400 border-l border-slate-800">next</div></div>${idx < p6List.length - 1 ? '<span class="text-pink-400 font-bold px-1.5">&rarr;</span>' : '<span class="text-rose-400 font-mono text-xs font-bold pl-2">&rarr; NULL</span>'}</div>`;
+      });
+      html += '</div>';
+      container.innerHTML = html;
+    }
+
+    function setButtonsDisabledP6(state) {
+      isExecuting = state;
+      document.getElementById('btnP6Insert').disabled = state;
+      document.getElementById('btnP6Delete').disabled = state;
+      document.getElementById('btnP6Search').disabled = state;
+      document.getElementById('btnP6Display').disabled = state;
+    }
+
+    async function opP6InsertFront() {
+      const dataInput = document.getElementById('p6InsertVal').value.trim();
+      if (dataInput === "") return logTrace("Validation Error.", "error");
+      const data = parseInt(dataInput);
+      setButtonsDisabledP6(true);
+      await highlightLine(63, "active-sll");
+      p6List.unshift(data); renderP6Stage();
+      await highlightLine(67, "active-sll");
+      logTrace(`Inserted ${data} at front.`, "info");
+      clearHighlight(); setButtonsDisabledP6(false);
+    }
+
+    async function opP6DeleteNode() {
+      const keyInput = document.getElementById('p6DeleteKey').value.trim();
+      if (keyInput === "") return logTrace("Validation Error.", "error");
+      const key = parseInt(keyInput);
+      setButtonsDisabledP6(true);
+      await highlightLine(73, "active-sll");
+      const idx = p6List.indexOf(key);
+      if (idx === -1) logTrace(`Key ${key} not found!`, "error");
+      else { p6List.splice(idx, 1); renderP6Stage(); logTrace(`Node ${key} deleted!`, "info"); }
+      clearHighlight(); setButtonsDisabledP6(false);
+    }
+
+    async function opP6SearchNode() {
+      const keyInput = document.getElementById('p6SearchKey').value.trim();
+      if (keyInput === "") return logTrace("Validation Error.", "error");
+      const key = parseInt(keyInput);
+      setButtonsDisabledP6(true);
+      await highlightLine(106, "active-sll");
+      const idx = p6List.indexOf(key);
+      if (idx !== -1) logTrace(`Node ${key} found!`, "info");
+      else logTrace(`Node ${key} not found!`, "error");
+      clearHighlight(); setButtonsDisabledP6(false);
+    }
+
+    async function opP6DisplayList() {
+      setButtonsDisabledP6(true);
+      await highlightLine(121, "active-sll");
+      if (p6List.length === 0) logTrace("List is empty!", "info");
+      else logTrace(`List: ${p6List.join(' -> ')} -> NULL`, "info");
+      clearHighlight(); setButtonsDisabledP6(false);
+    }
+
+    function opResetP6() { p6List = [10, 20, 30]; renderP6Stage(); clearHighlight(); }
+
+    // P7 DLL logic
+    function renderP7Stage() {
+      if (currentProgram !== 'p7') return;
+      const container = document.getElementById('visualCanvas');
+      document.getElementById('p7CountBadge').innerText = `${p7List.length} items`;
+      if (p7List.length === 0) {
+        container.innerHTML = '<div class="font-mono text-sm text-slate-500">NULL &larr; head &rarr; NULL (Empty)</div>';
+        return;
+      }
+      let html = '<div class="flex items-center gap-1.5 max-w-full overflow-x-auto py-3 px-2"><span class="text-rose-400 font-mono text-xs font-bold">NULL &larr;</span><span class="text-blue-400 font-mono text-xs font-bold px-1">head &rarr;</span>';
+      p7List.forEach((val, idx) => {
+        html += `<div id="dllNode-${idx}" class="flex items-center shrink-0"><div class="flex items-stretch border-2 border-blue-500/80 bg-slate-900 rounded-lg overflow-hidden"><div class="px-2 py-2 text-[10px] font-mono bg-slate-950 text-slate-400 border-r border-slate-800">prev</div><div class="px-3 py-2 text-xs font-mono font-bold bg-blue-950/50 text-blue-100 min-w-[36px]">${val}</div><div class="px-2 py-2 text-[10px] font-mono bg-slate-950 text-slate-400 border-l border-slate-800">next</div></div>${idx < p7List.length - 1 ? '<span class="text-blue-400 font-bold px-1.5">&harr;</span>' : '<span class="text-rose-400 font-mono text-xs font-bold pl-2">&rarr; NULL</span>'}</div>`;
+      });
+      html += '</div>';
+      container.innerHTML = html;
+    }
+
+    function setButtonsDisabledP7(state) {
+      isExecuting = state;
+      document.getElementById('btnP7Insert').disabled = state;
+      document.getElementById('btnP7Delete').disabled = state;
+      document.getElementById('btnP7InsertLeft').disabled = state;
+      document.getElementById('btnP7Display').disabled = state;
+    }
+
+    async function opP7InsertFront() {
+      const dataInput = document.getElementById('p7InsertVal').value.trim();
+      if (dataInput === "") return logTrace("Validation Error.", "error");
+      const data = parseInt(dataInput);
+      setButtonsDisabledP7(true);
+      await highlightLine(64, "active-dll");
+      p7List.unshift(data); renderP7Stage();
+      await highlightLine(74, "active-dll");
+      logTrace(`Node ${data} added at front.`, "info");
+      clearHighlight(); setButtonsDisabledP7(false);
+    }
+
+    async function opP7DeleteNode() {
+      const keyInput = document.getElementById('p7DeleteKey').value.trim();
+      if (keyInput === "") return logTrace("Validation Error.", "error");
+      const key = parseInt(keyInput);
+      setButtonsDisabledP7(true);
+      await highlightLine(78, "active-dll");
+      const idx = p7List.indexOf(key);
+      if (idx === -1) logTrace(`Node ${key} not found!`, "error");
+      else { p7List.splice(idx, 1); renderP7Stage(); logTrace(`Node ${key} deleted!`, "info"); }
+      clearHighlight(); setButtonsDisabledP7(false);
+    }
+
+    async function opP7InsertLeft() {
+      const keyInput = document.getElementById('p7LeftKey').value.trim();
+      const dataInput = document.getElementById('p7LeftData').value.trim();
+      if (keyInput === "" || dataInput === "") return logTrace("Validation Error.", "error");
+      const key = parseInt(keyInput);
+      const data = parseInt(dataInput);
+      setButtonsDisabledP7(true);
+      await highlightLine(114, "active-dll");
+      const idx = p7List.indexOf(key);
+      if (idx === -1) logTrace(`Key ${key} not found!`, "error");
+      else { p7List.splice(idx, 0, data); renderP7Stage(); logTrace(`Inserted ${data} to left of ${key}!`, "info"); }
+      clearHighlight(); setButtonsDisabledP7(false);
+    }
+
+    async function opP7DisplayList() {
+      setButtonsDisabledP7(true);
+      await highlightLine(150, "active-dll");
+      if (p7List.length === 0) logTrace("List is empty!", "info");
+      else logTrace(`DLL: ${p7List.join(' <-> ')}`, "info");
+      clearHighlight(); setButtonsDisabledP7(false);
+    }
+
+    function opResetP7() { p7List = [10, 20, 30]; renderP7Stage(); clearHighlight(); }
+
+    // ==========================================
+    // PROGRAM 8 LOGIC (BINARY SEARCH TREE)
+    // ==========================================
+    class BSTNode {
+      constructor(data) {
+        this.data = data;
+        this.lchild = null;
+        this.rchild = null;
+      }
+    }
+
+    function insertBSTNode(root, newnode) {
+      if (root === null) return newnode;
+      if (newnode.data < root.data) {
+        if (root.lchild === null) root.lchild = newnode;
+        else insertBSTNode(root.lchild, newnode);
+      } else if (newnode.data > root.data) {
+        if (root.rchild === null) root.rchild = newnode;
+        else insertBSTNode(root.rchild, newnode);
+      }
+      return root;
+    }
+
+    function getBSTHeight(node) {
+      if (node === null) return 0;
+      const leftH = getBSTHeight(node.lchild);
+      const rightH = getBSTHeight(node.rchild);
+      return Math.max(leftH, rightH) + 1;
+    }
+
+    function renderP8Stage() {
+      if (currentProgram !== 'p8') return;
+      const container = document.getElementById('visualCanvas');
+      const height = getBSTHeight(p8Root);
+      const badge = document.getElementById('p8HeightBadge');
+      if (badge) badge.innerText = height;
+
+      if (p8Root === null) {
+        container.innerHTML = '<div class="font-mono text-sm text-slate-500 italic">BST is empty. Click "Load Syllabus" or insert a node.</div>';
+        return;
+      }
+
+      // Compute visual positions using in-order coordinate spacing
+      let orderIndex = 0;
+      const posMap = new Map();
+
+      function assignCoords(node, depth) {
+        if (!node) return;
+        assignCoords(node.lchild, depth + 1);
+        posMap.set(node, { x: (orderIndex + 1) * 50, y: depth * 55 + 30 });
+        orderIndex++;
+        assignCoords(node.rchild, depth + 1);
+      }
+
+      assignCoords(p8Root, 0);
+
+      const svgWidth = Math.max(520, (orderIndex + 1) * 50 + 20);
+      const svgHeight = Math.max(220, (height + 1) * 55 + 20);
+
+      let svgLines = '';
+      let svgNodes = '';
+
+      function buildSVG(node) {
+        if (!node) return;
+        const currentPos = posMap.get(node);
+
+        if (node.lchild) {
+          const lPos = posMap.get(node.lchild);
+          svgLines += `<line x1="${currentPos.x}" y1="${currentPos.y}" x2="${lPos.x}" y2="${lPos.y}" stroke="#334155" stroke-width="2"/>`;
+          buildSVG(node.lchild);
+        }
+        if (node.rchild) {
+          const rPos = posMap.get(node.rchild);
+          svgLines += `<line x1="${currentPos.x}" y1="${currentPos.y}" x2="${rPos.x}" y2="${rPos.y}" stroke="#334155" stroke-width="2"/>`;
+          buildSVG(node.rchild);
+        }
+
+        svgNodes += `
+          <g id="bstNode-${node.data}">
+            <circle cx="${currentPos.x}" cy="${currentPos.y}" r="16" fill="#064e3b" stroke="#10b981" stroke-width="2" class="transition-colors duration-300"/>
+            <text x="${currentPos.x}" y="${currentPos.y + 4}" fill="#ecfdf5" font-size="11" font-family="monospace" font-weight="bold" text-anchor="middle">${node.data}</text>
+          </g>
+        `;
+      }
+
+      buildSVG(p8Root);
+
+      container.innerHTML = `
+        <svg viewBox="0 0 ${svgWidth} ${svgHeight}" class="w-full h-full min-w-[500px] min-h-[220px]">
+          ${svgLines}
+          ${svgNodes}
+        </svg>
+      `;
+    }
+
+    function setButtonsDisabledP8(state) {
+      isExecuting = state;
+      document.getElementById('btnP8Insert').disabled = state;
+      document.getElementById('btnP8Search').disabled = state;
+      document.getElementById('btnP8Pre').disabled = state;
+      document.getElementById('btnP8In').disabled = state;
+      document.getElementById('btnP8Post').disabled = state;
+    }
+
+    function highlightBSTNode(val, fill = "#059669", stroke = "#34d399", duration = 400) {
+      const g = document.getElementById(`bstNode-${val}`);
+      if (!g) return;
+      const circle = g.querySelector('circle');
+      if (!circle) return;
+      const origFill = circle.getAttribute('fill');
+      const origStroke = circle.getAttribute('stroke');
+      circle.setAttribute('fill', fill);
+      circle.setAttribute('stroke', stroke);
+      setTimeout(() => {
+        circle.setAttribute('fill', origFill);
+        circle.setAttribute('stroke', origStroke);
+      }, duration);
+    }
+
+    // Step-by-Step insert node
+    async function opP8InsertNode() {
+      if (isExecuting) return;
+      const input = document.getElementById('p8InsertVal').value.trim();
+      if (input === "") return logTrace("Validation Error: Enter integer value.", "error");
+      const val = parseInt(input);
+      if (isNaN(val)) return logTrace("Validation Error: Value must be an integer.", "error");
+
+      setButtonsDisabledP8(true);
+
+      // Line 122: case 1 -> Line 127: newnode = create();
+      await highlightLine(122, "active-bst");
+      await highlightLine(127, "active-bst");
+      await highlightLine(12, "active-bst"); // create()
+      logTrace(`create(): Node with data = ${val} allocated via malloc().`);
+
+      const newnode = new BSTNode(val);
+
+      if (p8Root === null) {
+        await highlightLine(128, "active-bst"); // if (root == NULL)
+        p8Root = newnode;
+        renderP8Stage();
+        await highlightLine(129, "active-bst"); // root = newnode;
+        logTrace(`Tree was empty -> Set root = ${val}.`, "info");
+      } else {
+        await highlightLine(131, "active-bst"); // insert(root, newnode);
+        await highlightLine(28, "active-bst"); // void insert(...)
+
+        let cur = p8Root;
+        let inserted = false;
+
+        while (cur !== null) {
+          highlightBSTNode(cur.data, "#1e3a8a", "#60a5fa", 300);
+
+          if (val === cur.data) {
+            logTrace(`Duplicate check: ${val} == ${cur.data} -> SKIPPED (No duplicates allowed).`, "error");
+            break;
+          } else if (val < cur.data) {
+            await highlightLine(30, "active-bst"); // if (newnode->data < root->data)
+            logTrace(`${val} < ${cur.data} -> traverse left branch`);
+            if (cur.lchild === null) {
+              await highlightLine(32, "active-bst"); // root->lchild = newnode;
+              cur.lchild = newnode;
+              inserted = true;
+              break;
+            } else {
+              await highlightLine(34, "active-bst"); // insert(root->lchild, newnode);
+              cur = cur.lchild;
+            }
+          } else {
+            await highlightLine(36, "active-bst"); // if (newnode->data > root->data)
+            logTrace(`${val} > ${cur.data} -> traverse right branch`);
+            if (cur.rchild === null) {
+              await highlightLine(38, "active-bst"); // root->rchild = newnode;
+              cur.rchild = newnode;
+              inserted = true;
+              break;
+            } else {
+              await highlightLine(40, "active-bst"); // insert(root->rchild, newnode);
+              cur = cur.rchild;
+            }
+          }
+        }
+
+        renderP8Stage();
+        if (inserted) {
+          highlightBSTNode(val, "#047857", "#10b981", 700);
+          logTrace(`SUCCESS: Inserted ${val} into BST. Height = ${getBSTHeight(p8Root)}`, "info");
+        }
+      }
+
+      await highlightLine(133, "active-bst"); // break;
+      clearHighlight();
+      setButtonsDisabledP8(false);
+    }
+
+    // Load Syllabus Sequence: 6, 9, 5, 2, 8, 15, 24, 14, 7, 8, 5, 2
+    function opP8LoadSyllabusSequence(showLog = true) {
+      const syllabusList = [6, 9, 5, 2, 8, 15, 24, 14, 7, 8, 5, 2];
+      p8Root = null;
+      let insertedCount = 0;
+      let duplicateCount = 0;
+
+      syllabusList.forEach(item => {
+        const node = new BSTNode(item);
+        if (p8Root === null) {
+          p8Root = node;
+          insertedCount++;
+        } else {
+          // Check duplicates
+          let cur = p8Root;
+          let dup = false;
+          while (cur) {
+            if (item === cur.data) { dup = true; break; }
+            if (item < cur.data) {
+              if (cur.lchild === null) { cur.lchild = node; break; }
+              cur = cur.lchild;
+            } else {
+              if (cur.rchild === null) { cur.rchild = node; break; }
+              cur = cur.rchild;
+            }
+          }
+          if (dup) duplicateCount++;
+          else insertedCount++;
+        }
+      });
+
+      renderP8Stage();
+      if (showLog) {
+        logTrace(`Loaded syllabus sequence [6, 9, 5, 2, 8, 15, 24, 14, 7, 8, 5, 2].`, "info");
+        logTrace(`Inserted ${insertedCount} nodes. (${duplicateCount} duplicate nodes skipped). Height = ${getBSTHeight(p8Root)}`, "info");
+      }
+    }
+
+    // Step-by-Step search(root) matching lines 44-71
+    async function opP8SearchNode() {
+      if (isExecuting) return;
+      const keyInput = document.getElementById('p8SearchKey').value.trim();
+      if (keyInput === "") return logTrace("Validation Error: Enter search key.", "error");
+      const key = parseInt(keyInput);
+      if (isNaN(key)) return logTrace("Validation Error: Key must be an integer.", "error");
+
+      setButtonsDisabledP8(true);
+
+      // Line 136: case 2: search(root);
+      await highlightLine(135, "active-bst");
+      await highlightLine(136, "active-bst");
+
+      // Function: void search(NODE root)
+      await highlightLine(44, "active-bst");
+      await highlightLine(48, "active-bst"); // if(root == NULL)
+
+      if (p8Root === null) {
+        await highlightLine(50, "active-bst"); // printf("\nBST is empty.");
+        logTrace("search(root): BST is empty.", "error");
+        clearHighlight();
+        setButtonsDisabledP8(false);
+        return;
+      }
+
+      await highlightLine(55, "active-bst"); // cur = root;
+      let cur = p8Root;
+      let found = false;
+
+      logTrace(`--- Executing search(root) for key = ${key} ---`, "info");
+
+      await highlightLine(56, "active-bst"); // while (cur != NULL)
+      while (cur !== null) {
+        await highlightLine(56, "active-bst");
+        highlightBSTNode(cur.data, "#d97706", "#f59e0b", 400);
+        logTrace(`Comparing: key ${key} with current node ${cur.data}`);
+
+        await highlightLine(58, "active-bst"); // if (cur->data == key)
+        if (cur.data === key) {
+          found = true;
+          highlightBSTNode(cur.data, "#047857", "#10b981", 900);
+          await highlightLine(60, "active-bst"); // printf("\nKey element is present in BST");
+          logTrace(`SUCCESS: Key element ${key} is present in BST.`, "info");
+          await highlightLine(61, "active-bst"); // return;
+          break;
+        }
+
+        await highlightLine(63, "active-bst"); // if (key < cur->data)
+        if (key < cur.data) {
+          logTrace(`${key} < ${cur.data} -> Moving to left child (cur = cur->lchild)`);
+          await highlightLine(64, "active-bst"); // cur = cur->lchild;
+          cur = cur.lchild;
+        } else {
+          logTrace(`${key} > ${cur.data} -> Moving to right child (cur = cur->rchild)`);
+          await highlightLine(66, "active-bst"); // cur = cur->rchild;
+          cur = cur.rchild;
+        }
+      }
+
+      if (!found) {
+        await highlightLine(68, "active-bst"); // printf("\nKey element is not found in the BST");
+        logTrace(`Key element ${key} is not found in the BST.`, "error");
+      }
+
+      await highlightLine(137, "active-bst"); // break;
+      clearHighlight();
+      setButtonsDisabledP8(false);
+    }
+
+    // Traversal: In-order (Left -> Root -> Right)
+    async function opP8Inorder() {
+      if (isExecuting) return;
+      if (p8Root === null) return logTrace("BST is empty.", "info");
+      setButtonsDisabledP8(true);
+      await highlightLine(73, "active-bst");
+      logTrace("--- Inorder Traversal (L -> Root -> R) ---", "info");
+      let out = [];
+
+      async function inWalk(node) {
+        if (!node) return;
+        await inWalk(node.lchild);
+        highlightBSTNode(node.data, "#10b981", "#34d399", 350);
+        out.push(node.data);
+        logTrace(`Visited: ${node.data}`);
+        await new Promise(r => setTimeout(r, 350));
+        await inWalk(node.rchild);
+      }
+
+      await inWalk(p8Root);
+      logTrace(`The Inorder display : ${out.join(' ')}`, "info");
+      clearHighlight();
+      setButtonsDisabledP8(false);
+    }
+
+    // Traversal: Pre-order (Root -> Left -> Right)
+    async function opP8Preorder() {
+      if (isExecuting) return;
+      if (p8Root === null) return logTrace("BST is empty.", "info");
+      setButtonsDisabledP8(true);
+      await highlightLine(83, "active-bst");
+      logTrace("--- Preorder Traversal (Root -> L -> R) ---", "info");
+      let out = [];
+
+      async function preWalk(node) {
+        if (!node) return;
+        highlightBSTNode(node.data, "#38bdf8", "#0284c7", 350);
+        out.push(node.data);
+        logTrace(`Visited: ${node.data}`);
+        await new Promise(r => setTimeout(r, 350));
+        await preWalk(node.lchild);
+        await preWalk(node.rchild);
+      }
+
+      await preWalk(p8Root);
+      logTrace(`The Preorder display : ${out.join(' ')}`, "info");
+      clearHighlight();
+      setButtonsDisabledP8(false);
+    }
+
+    // Traversal: Post-order (Left -> Right -> Root)
+    async function opP8Postorder() {
+      if (isExecuting) return;
+      if (p8Root === null) return logTrace("BST is empty.", "info");
+      setButtonsDisabledP8(true);
+      await highlightLine(94, "active-bst");
+      logTrace("--- Postorder Traversal (L -> R -> Root) ---", "info");
+      let out = [];
+
+      async function postWalk(node) {
+        if (!node) return;
+        await postWalk(node.lchild);
+        await postWalk(node.rchild);
+        highlightBSTNode(node.data, "#a855f7", "#9333ea", 350);
+        out.push(node.data);
+        logTrace(`Visited: ${node.data}`);
+        await new Promise(r => setTimeout(r, 350));
+      }
+
+      await postWalk(p8Root);
+      logTrace(`The Postorder display : ${out.join(' ')}`, "info");
+      clearHighlight();
+      setButtonsDisabledP8(false);
+    }
+
+    // Runs Case 3 (All three traversals in sequence)
+    async function opP8TraverseAll() {
+      if (isExecuting) return;
+      if (p8Root === null) return logTrace("Tree Is Not Created", "error");
+      await opP8Preorder();
+      await opP8Inorder();
+      await opP8Postorder();
+    }
+
+    function opP8ClearTree() {
+      p8Root = null;
+      renderP8Stage();
+      logTrace("Tree cleared (root = NULL).", "info");
+    }
+
+    function opResetP8() {
+      opP8LoadSyllabusSequence(true);
+      document.getElementById('p8InsertVal').value = "10";
+      document.getElementById('p8SearchKey').value = "8";
+      clearHighlight();
+    }
+
+    // ==========================================
+    // SHARED UTILITIES
+    // ==========================================
+    function logTrace(msg, level = "normal") {
+      const consoleTrace = document.getElementById("consoleTrace");
+      const time = new Date().toLocaleTimeString().split(" ")[0];
+      const div = document.createElement("div");
+
+      let color = "text-slate-300";
+      if (level === "error") color = "text-rose-400 font-semibold";
+      if (level === "info") color = "text-emerald-400 font-medium";
+
+      div.className = `${color} tracking-wide leading-relaxed`;
+      div.innerHTML = `<span class="text-slate-600 font-mono">[${time}]</span> ${msg}`;
+      consoleTrace.appendChild(div);
+      consoleTrace.scrollTop = consoleTrace.scrollHeight;
+    }
+
+    function clearConsole() {
+      document.getElementById("consoleTrace").innerHTML = "";
+    }
+
+    function toggleEditSource() {
+      const viewContainer = document.getElementById("codeViewContainer");
+      const editContainer = document.getElementById("codeEditContainer");
+      const actionBtns = document.getElementById("editorActionButtons");
+      const btnToggle = document.getElementById("btnEditToggle");
+      const label = document.getElementById("codeModeLabel");
+
+      if (viewContainer.classList.contains("hidden")) {
+        viewContainer.classList.remove("hidden");
+        editContainer.classList.add("hidden");
+        actionBtns.classList.add("hidden");
+        btnToggle.innerText = "Edit Code";
+        label.innerText = `${currentProgram}.c (Active Line Tracker)`;
+      } else {
+        viewContainer.classList.add("hidden");
+        editContainer.classList.remove("hidden");
+        actionBtns.classList.remove("hidden");
+        btnToggle.innerText = "Close Editor";
+        label.innerText = `Editing ${currentProgram}.c Source`;
+      }
+    }
+
+    function saveCodeBuffer() {
+      const edited = document.getElementById("codeEditor").value;
+      if (currentProgram === 'p1') { codeLinesP1 = edited.split("\n"); buildCodeLineList(codeLinesP1); }
+      else if (currentProgram === 'p2') { codeLinesP2 = edited.split("\n"); buildCodeLineList(codeLinesP2); }
+      else if (currentProgram === 'p3') { codeLinesP3 = edited.split("\n"); buildCodeLineList(codeLinesP3); }
+      else if (currentProgram === 'p4') { codeLinesP4 = edited.split("\n"); buildCodeLineList(codeLinesP4); }
+      else if (currentProgram === 'p5') { codeLinesP5 = edited.split("\n"); buildCodeLineList(codeLinesP5); }
+      else if (currentProgram === 'p6') { codeLinesP6 = edited.split("\n"); buildCodeLineList(codeLinesP6); }
+      else if (currentProgram === 'p7') { codeLinesP7 = edited.split("\n"); buildCodeLineList(codeLinesP7); }
+      else if (currentProgram === 'p8') { codeLinesP8 = edited.split("\n"); buildCodeLineList(codeLinesP8); }
+      toggleEditSource();
+      logTrace(`Saved modifications for ${currentProgram.toUpperCase()} source buffer.`, "info");
+    }
+
+    function resetCurrentProgramCode() {
+      if (currentProgram === 'p1') { codeLinesP1 = rawProgram1.split("\n"); buildCodeLineList(codeLinesP1); }
+      else if (currentProgram === 'p2') { codeLinesP2 = rawProgram2.split("\n"); buildCodeLineList(codeLinesP2); }
+      else if (currentProgram === 'p3') { codeLinesP3 = rawProgram3.split("\n"); buildCodeLineList(codeLinesP3); }
+      else if (currentProgram === 'p4') { codeLinesP4 = rawProgram4.split("\n"); buildCodeLineList(codeLinesP4); }
+      else if (currentProgram === 'p5') { codeLinesP5 = rawProgram5.split("\n"); buildCodeLineList(codeLinesP5); }
+      else if (currentProgram === 'p6') { codeLinesP6 = rawProgram6.split("\n"); buildCodeLineList(codeLinesP6); }
+      else if (currentProgram === 'p7') { codeLinesP7 = rawProgram7.split("\n"); buildCodeLineList(codeLinesP7); }
+      else if (currentProgram === 'p8') { codeLinesP8 = rawProgram8.split("\n"); buildCodeLineList(codeLinesP8); }
+      toggleEditSource();
+      logTrace(`Restored original source code for ${currentProgram.toUpperCase()}.`, "info");
+    }
+
+    window.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>
